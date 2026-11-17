@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>操死你免费看-影视剧集免费观看指南</title>
+<meta name="description" content="操死你免费看是一个面向影视爱好者的免费观看信息站，整理剧集更新时间、免费平台入口、观看顺序与画质选择，含热度榜单、深度解析与常见问题，帮助快速找到想看的剧和电影。">
+<meta name="keywords" content="操死你免费看">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b1030'/%3E%3Cpath d='M24 18l22 14-22 14z' fill='%23ff5c8a'/%3E%3Ccircle cx='46' cy='46' r='6' fill='%23ffd166'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#1c1524;
+  --ink-2:#453a52;
+  --ink-3:#6d637a;
+  --bg:#f7f4f9;
+  --card:#ffffff;
+  --line:#e4dcea;
+  --brand:#5b21b6;
+  --brand-2:#7c3aed;
+  --accent:#ff5c8a;
+  --accent-2:#ffd166;
+  --ok:#0f766e;
+  --warn:#b45309;
+  --shadow:0 2px 0 rgba(28,21,36,.04),0 10px 24px -16px rgba(28,21,36,.35);
+  --radius:14px;
+  --radius-s:9px;
+  --fs-1:clamp(1.6rem,4.2vw,2.5rem);
+  --fs-2:clamp(1.2rem,2.6vw,1.5rem);
+  --fs-3:1.05rem;
+  --sp:clamp(16px,3vw,28px);
+  --sticky:96px;
+  --font:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:var(--font);color:var(--ink);background:var(--bg);
+  line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{line-height:1.3;margin:0 0 .5em}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.3em}
+li{margin:.25em 0}
+.anchor-offset{scroll-margin-top:var(--sticky)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+/* 吸顶区 */
+.topwrap{position:sticky;top:0;z-index:60}
+.announce{
+  background:linear-gradient(90deg,#2c1050,#5b21b6 60%,#7c3aed);
+  color:#f3e8ff;font-size:.85rem;padding:7px 0;
+}
+.announce .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.announce b{color:#ffd166;font-weight:700}
+.announce .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
+
+.header{
+  background:rgba(255,255,255,.94);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);box-shadow:0 6px 18px -18px #000;
+}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+.headbar{display:flex;align-items:center;gap:14px;padding:10px 0;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto}
+.brand svg{width:38px;height:38px;flex:none}
+.brand .bt{display:flex;flex-direction:column;line-height:1.15}
+.brand .bt strong{font-size:1.02rem;letter-spacing:.02em}
+.brand .bt span{font-size:.72rem;color:var(--ink-3)}
+.nav-toggle{
+  display:none;border:1px solid var(--line);background:#fff;border-radius:var(--radius-s);
+  padding:8px 12px;font:inherit;font-size:.9rem;cursor:pointer;color:var(--ink-2);
+}
+.mainnav{display:flex;gap:4px;flex-wrap:wrap}
+.mainnav a{
+  padding:7px 11px;border-radius:999px;font-size:.88rem;color:var(--ink-2);
+}
+.mainnav a:hover{background:#f1e9fb;text-decoration:none;color:var(--brand)}
+.search{display:flex;align-items:center;gap:6px}
+.search input{
+  font:inherit;font-size:.86rem;padding:7px 11px;border:1px solid var(--line);
+  border-radius:999px;width:170px;background:#fbf9fd;color:var(--ink);
+}
+.search button{
+  font:inherit;font-size:.86rem;padding:7px 13px;border-radius:999px;cursor:pointer;
+  border:1px solid transparent;background:var(--brand);color:#fff;
+}
+.search button:hover{background:var(--brand-2)}
+.searchmsg{font-size:.8rem;color:var(--warn);padding:0 0 8px}
+
+/* 首屏 */
+.hero{position:relative;overflow:hidden;background:
+  radial-gradient(900px 380px at 88% -10%,#ffe6ef 0%,transparent 60%),
+  radial-gradient(700px 340px at 4% 110%,#e7dcff 0%,transparent 62%),
+  #fff;
+  border-bottom:1px solid var(--line);
+}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(18px,4vw,48px);align-items:center;padding:clamp(26px,5vw,54px) 0}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;letter-spacing:.14em;color:var(--brand);background:#f1e9fb;border:1px solid #e3d5fb;padding:4px 11px;border-radius:999px;margin-bottom:14px}
+.hero h1{font-size:var(--fs-1);letter-spacing:-.01em;margin-bottom:.35em}
+.hero .lede{font-size:1.02rem;color:var(--ink-2);max-width:34em;margin-bottom:1.2em}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.btn{display:inline-block;padding:10px 18px;border-radius:999px;font-size:.92rem;font-weight:600;border:1px solid transparent}
+.btn.primary{background:var(--brand);color:#fff;box-shadow:0 8px 18px -12px #5b21b6}
+.btn.primary:hover{background:var(--brand-2);text-decoration:none;transform:translateY(-2px)}
+.btn.ghost{border-color:#d9cdea;color:var(--ink-2);background:#fff}
+.btn.ghost:hover{border-color:var(--brand);color:var(--brand);text-decoration:none}
+.stats{display:flex;gap:20px;flex-wrap:wrap;font-size:.82rem;color:var(--ink-3)}
+.stats b{display:block;font-size:1.25rem;color:var(--ink);line-height:1.2}
+.hero-art{position:relative;aspect-ratio:1/1;max-width:380px;justify-self:end;width:100%}
+.hero-art svg{width:100%;height:100%;overflow:visible}
+.floaty{animation:floaty 7s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+
+/* 主体布局 */
+.layout{display:grid;grid-template-columns:1fr 300px;gap:var(--sp);padding:var(--sp) 0 48px;align-items:start}
+main{min-width:0}
+aside.sidebar{position:sticky;top:calc(var(--sticky) + 8px);min-width:0}
+.sec{margin-bottom:var(--sp)}
+.sec-head{display:flex;align-items:flex-end;gap:12px;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap}
+.sec-head h2{font-size:var(--fs-2);margin:0}
+.sec-head .hint{font-size:.8rem;color:var(--ink-3)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(14px,2.4vw,22px)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.tag{display:inline-block;font-size:.74rem;padding:2px 9px;border-radius:999px;background:#f1e9fb;color:var(--brand);border:1px solid #e3d5fb}
+.tag.pink{background:#ffeaf1;border-color:#ffd0de;color:#b3154e}
+.tag.gold{background:#fff6dc;border-color:#f7e3ad;color:#8a5a05}
+.tag.teal{background:#e2f7f3;border-color:#b8e8df;color:var(--ok)}
+.meta{font-size:.78rem;color:var(--ink-3);display:flex;gap:10px;flex-wrap:wrap}
+.title-s{font-size:1rem;font-weight:700;margin:.35em 0 .3em}
+.body-s{font-size:.88rem;color:var(--ink-2);margin:0}
+.thumb{border-radius:var(--radius-s);overflow:hidden;border:1px solid var(--line);background:#eee}
+.thumb img{width:100%;height:150px;object-fit:cover}
+
+/* 精选卡片 */
+.pick{display:flex;flex-direction:column}
+.pick .thumb img{height:132px}
+.pick .inner{padding:12px 14px 14px}
+.pick h3{margin:.1em 0 .35em;font-size:.98rem}
+
+/* 紧凑列表 */
+.tlist{list-style:none;padding:0;margin:0}
+.tlist li{display:flex;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
+.tlist li:last-child{border-bottom:none;padding-bottom:0}
+.tlist .no{
+  flex:none;width:26px;height:26px;border-radius:8px;background:#f1e9fb;color:var(--brand);
+  font-size:.8rem;font-weight:700;display:grid;place-items:center;margin-top:2px;
+}
+.tlist .txt{min-width:0}
+.tlist .txt strong{display:block;font-size:.94rem}
+.tlist .txt span{font-size:.8rem;color:var(--ink-3)}
+
+/* 分类入口 */
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cat{
+  display:block;padding:12px 13px;border-radius:var(--radius-s);border:1px solid var(--line);
+  background:#fff;color:var(--ink);
+}
+.cat:hover{border-color:var(--brand);text-decoration:none;transform:translateY(-2px)}
+.cat strong{display:block;font-size:.92rem;margin-bottom:2px}
+.cat span{font-size:.76rem;color:var(--ink-3)}
+
+/* 深度解析 */
+.deep{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:clamp(16px,3vw,30px);box-shadow:var(--shadow)}
+.deep h3{font-size:1.08rem;margin-top:1.5em;padding-left:12px;border-left:4px solid var(--accent)}
+.deep h3:first-of-type{margin-top:.6em}
+.claim{
+  border:1px solid #ffd0de;background:#fff5f8;border-radius:var(--radius-s);
+  padding:12px 16px;margin:14px 0;font-size:.92rem;
+}
+.claim b{color:#b3154e}
+table{width:100%;border-collapse:collapse;font-size:.86rem;margin:12px 0}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#faf7fd;font-weight:700}
+blockquote{margin:14px 0;padding:12px 16px;border-left:3px solid var(--brand);background:#faf7fd;border-radius:0 var(--radius-s) var(--radius-s) 0;color:var(--ink-2);font-size:.92rem}
+blockquote cite{display:block;font-style:normal;font-size:.78rem;color:var(--ink-3);margin-top:6px}
+
+/* 步骤 */
+.steps{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.steps li{counter-increment:s;position:relative;padding:11px 14px 11px 46px;background:#fff;border:1px solid var(--line);border-radius:var(--radius-s);font-size:.9rem}
+.steps li::before{
+  content:counter(s);position:absolute;left:10px;top:50%;transform:translateY(-50%);
+  width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;
+  display:grid;place-items:center;font-size:.8rem;font-weight:700;
+}
+
+/* 对照面板 */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.panel{border-radius:var(--radius-s);padding:14px 16px;font-size:.88rem;border:1px solid var(--line);background:#fff}
+.panel h4{margin:0 0 .5em;font-size:.92rem}
+.panel ul{margin:0;padding-left:1.1em}
+.panel.pro{border-color:#b8e8df;background:#f2fbf9}
+.panel.con{border-color:#ffd0de;background:#fff6f9}
+
+/* 标签索引 */
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags a{font-size:.84rem;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink-2)}
+.tags a:hover{border-color:var(--brand);color:var(--brand);text-decoration:none}
+
+/* FAQ */
+details.faq{border:1px solid var(--line);border-radius:var(--radius-s);background:#fff;margin-bottom:8px;overflow:hidden}
+details.faq summary{
+  cursor:pointer;padding:12px 16px;font-size:.93rem;font-weight:600;list-style:none;
+  display:flex;justify-content:space-between;gap:12px;align-items:center;
+}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{content:"+";color:var(--brand);font-weight:700;font-size:1.1rem;flex:none}
+details.faq[open] summary::after{content:"–"}
+details.faq[open] summary{background:#faf7fd}
+details.faq .ans{padding:0 16px 14px;font-size:.89rem;color:var(--ink-2);border-top:1px dashed var(--line)}
+
+/* 评论 */
+.cmts{display:grid;gap:12px}
+.cmt{border:1px solid var(--line);border-radius:var(--radius-s);padding:12px 14px;background:#fff;font-size:.89rem}
+.cmt .who{display:flex;align-items:center;gap:9px;margin-bottom:6px;font-size:.8rem;color:var(--ink-3)}
+.avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--accent));color:#fff;display:grid;place-items:center;font-size:.72rem;font-weight:700;flex:none}
+.cmt p{margin:0;color:var(--ink-2)}
+.cmt .star{color:#d99a00;letter-spacing:1px;font-size:.8rem}
+
+/* 时间线 */
+.timeline{list-style:none;padding:0;margin:0;position:relative}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(#e3d5fb,#ffd0de)}
+.timeline li{position:relative;padding:0 0 16px 28px}
+.timeline li:last-child{padding-bottom:0}
+.timeline li::before{content:"";position:absolute;left:2px;top:7px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--brand)}
+.timeline .when{font-size:.76rem;color:var(--brand);font-weight:700}
+.timeline .what{font-size:.89rem;color:var(--ink-2)}
+
+/* 侧栏 */
+.side-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px}
+.side-card h2{font-size:.95rem;margin:0 0 10px;display:flex;align-items:center;gap:7px}
+.side-card h2::before{content:"";width:5px;height:15px;border-radius:3px;background:var(--accent)}
+.side-nav{list-style:none;padding:0;margin:0;font-size:.87rem}
+.side-nav a{display:block;padding:6px 9px;border-radius:7px;color:var(--ink-2);border-left:2px solid transparent}
+.side-nav a:hover{background:#faf7fd;text-decoration:none}
+.side-nav a.active{background:#f1e9fb;color:var(--brand);border-left-color:var(--brand);font-weight:700}
+.mini{list-style:none;padding:0;margin:0;font-size:.85rem}
+.mini li{padding:7px 0;border-bottom:1px dashed var(--line)}
+.mini li:last-child{border-bottom:none;padding-bottom:0}
+.mini strong{display:block;font-weight:600;color:var(--ink)}
+.mini span{font-size:.76rem;color:var(--ink-3)}
+.notice-box{font-size:.84rem;color:var(--ink-2);background:#faf7fd;border:1px dashed #d9cdea;border-radius:var(--radius-s);padding:11px 13px}
+
+/* 页尾 */
+footer{background:#1c1524;color:#cfc6da;padding:40px 0 26px;font-size:.88rem}
+footer a{color:#e7dcff}
+.fgrid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:24px;margin-bottom:26px}
+footer h3{color:#fff;font-size:.92rem;margin:0 0 10px}
+footer ul{list-style:none;padding:0;margin:0}
+footer li{padding:3px 0}
+.fbot{border-top:1px solid #33293f;padding-top:16px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:.78rem;color:#9c90ab}
+.fbrand{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.fbrand svg{width:32px;height:32px}
+.fbrand strong{color:#fff;font-size:1rem}
+.fpos{font-size:.85rem;color:#b7acc4;max-width:30em}
+
+/* 回到顶部 */
+#toTop{
+  position:fixed;right:16px;bottom:18px;z-index:70;border:none;cursor:pointer;
+  width:44px;height:44px;border-radius:50%;background:var(--brand);color:#fff;font-size:1.1rem;
+  box-shadow:0 10px 24px -12px #5b21b6;display:none;place-items:center;
+}
+#toTop.show{display:grid}
+#toTop:hover{background:var(--brand-2)}
+
+@media (max-width:960px){
+  .layout{grid-template-columns:1fr}
+  aside.sidebar{position:static;margin-top:8px}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-art{max-width:300px;justify-self:start;order:-1}
+  .g3{grid-template-columns:repeat(2,1fr)}
+  .fgrid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:720px){
+  .nav-toggle{display:inline-block}
+  .mainnav{display:none;width:100%;flex-direction:column;padding-top:6px}
+  .mainnav.open{display:flex}
+  .mainnav a{padding:9px 12px;background:#faf7fd}
+  .search{width:100%}
+  .search input{flex:1;width:auto}
+  .g2,.g3,.cats,.compare{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr}
+  .headbar{padding:9px 0}
+  :root{--sticky:118px}
+  .thumb img{height:170px}
+}
+@media (max-width:360px){
+  .wrap{width:calc(100% - 22px)}
+  .brand .bt span{display:none}
+  #toTop{right:10px;width:40px;height:40px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .btn.primary:hover,.cat:hover{transform:none}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="topwrap">
+  <div class="announce">
+    <div class="wrap">
+      <span class="dot" aria-hidden="true"></span>
+      <span><b>操死你免费看</b> 11 月 8 日更新：悬疑剧《雾港十三号》第 9 集上线，会员超前点映两集；片单新增 4 部 4K 修复老片。</span>
+    </div>
+  </div>
+  <header class="header">
+    <div class="wrap headbar">
+      <a class="brand" href="/#hero" aria-label="操死你免费看 首页">
+        <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#1b1030"/>
+          <path d="M23 17l23 15-23 15z" fill="#ff5c8a"/>
+          <circle cx="47" cy="47" r="7" fill="#ffd166"/>
+          <circle cx="47" cy="47" r="2.6" fill="#1b1030"/>
+        </svg>
+        <span class="bt">
+          <strong>操死你免费看</strong>
+          <span>剧集排期 · 免费入口</span>
+        </span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mainnav">频道菜单</button>
+      <nav class="mainnav" id="mainnav" aria-label="主题导航">
+        <a href="/#overview">领域概览</a>
+        <a href="/#picks">本周精选</a>
+        <a href="/#latest">最新更新</a>
+        <a href="/#cats">分类入口</a>
+        <a href="/#deep">深度解析</a>
+        <a href="/#guide">观看指南</a>
+        <a href="/#rank">热度榜单</a>
+        <a href="/#faq">常见问题</a>
+      </nav>
+      <form class="search" id="searchForm" role="search">
+        <label for="q" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">站内查找剧名</label>
+        <input id="q" name="q" type="search" placeholder="搜剧名 / 演员 / 类型" autocomplete="off">
+        <button type="submit">查找</button>
+      </form>
+    </div>
+    <div class="wrap"><p class="searchmsg" id="searchMsg" role="status" aria-live="polite"></p></div>
+  </header>
+</div>
+
+<section class="hero" id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker">2026 年 11 月 · 剧集排期与片单</span>
+      <h1>操死你免费看</h1>
+      <p class="lede">把一部剧的更新时间、能免费看到的集数、画质与字幕版本摊在同一张表里。悬疑、都市、古装、纪录片按更新节奏排好，追到第几集不用来回翻三个平台。</p>
+      <div class="cta">
+        <a class="btn primary" href="/#latest">看今日更新</a>
+        <a class="btn ghost" href="/#guide">免费观看路径</a>
+      </div>
+      <div class="stats">
+        <div><b>128</b>在更剧集</div>
+        <div><b>37</b>部 4K 修复片</div>
+        <div><b>9</b>个免费片源平台</div>
+        <div><b>11.08</b>数据校对日</div>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 360 360" role="img">
+        <defs>
+          <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ff5c8a"/><stop offset="1" stop-color="#7c3aed"/>
+          </linearGradient>
+          <linearGradient id="scr" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2c1050"/><stop offset="1" stop-color="#4c1d95"/>
+          </linearGradient>
+        </defs>
+        <circle cx="290" cy="70" r="46" fill="#ffd166" opacity=".8"/>
+        <circle cx="64" cy="300" r="34" fill="#ff5c8a" opacity=".25"/>
+        <g class="floaty">
+          <rect x="40" y="86" width="256" height="158" rx="14" fill="url(#scr)"/>
+          <rect x="56" y="102" width="224" height="126" rx="8" fill="#120a22"/>
+          <path d="M156 140l52 33-52 33z" fill="url(#glow)"/>
+          <rect x="40" y="252" width="256" height="10" rx="5" fill="#2c1050"/>
+        </g>
+        <g class="floaty" style="animation-delay:-2.5s">
+          <rect x="210" y="236" width="118" height="70" rx="10" fill="#fff" stroke="#e4dcea"/>
+          <rect x="222" y="250" width="60" height="7" rx="3.5" fill="#7c3aed" opacity=".8"/>
+          <rect x="222" y="265" width="88" height="6" rx="3" fill="#e4dcea"/>
+          <rect x="222" y="279" width="72" height="6" rx="3" fill="#e4dcea"/>
+          <circle cx="306" cy="274" r="12" fill="#ff5c8a"/>
+        </g>
+        <g fill="#5b21b6" opacity=".55">
+          <circle cx="96" cy="60" r="5"/><circle cx="120" cy="46" r="3"/><circle cx="78" cy="40" r="3.5"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="wrap layout">
+  <main>
+
+    <section class="sec anchor-offset" id="overview">
+      <div class="sec-head">
+        <h2>领域概览：免费观影到底在免费什么</h2>
+        <span class="hint">分四类说清楚</span>
+      </div>
+      <div class="card">
+        <p>国内能“免费看”的路径就那么几种，混淆了容易白等。按代价排：</p>
+        <div class="grid g2">
+          <div class="panel pro">
+            <h4>广告免费层</h4>
+            <ul>
+              <li>平台：爱奇艺、腾讯视频、优酷的会员剧通常只放前 2 集免费</li>
+              <li>时长：单集贴片广告 60—120 秒</li>
+              <li>适合：先看两集判断要不要追</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h4>限时免费与公益展映</h4>
+            <ul>
+              <li>国家广电总局“视听中国”展播季，10 月起排了 26 部</li>
+              <li>B 站纪录片区每周三 12:00 限免一部</li>
+              <li>适合：老片补看、纪录片</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h4>公共版权与修复片</h4>
+            <ul>
+              <li>中国电影资料馆线上库，4K 修复片 37 部</li>
+              <li>无广告，但要实名注册</li>
+              <li>适合：默片、1949 年前作品</li>
+            </ul>
+          </div>
+          <div class="panel con">
+            <h4>需当心的“免费”</h4>
+            <ul>
+              <li>盗链条网站清晰度常标 1080P，实测多为 480P 拉大</li>
+              <li>有诱导下载与弹窗，10 月已有多例投诉</li>
+              <li>不建议登录任何账号</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec anchor-offset" id="picks">
+      <div class="sec-head">
+        <h2>本周精选：四部值得排进片单的剧</h2>
+        <span class="hint">按 11 月 1 日—7 日数据</span>
+      </div>
+      <div class="grid g3">
+        <article class="card pick">
+          <div class="thumb"><img src="https://picsum.photos/seed/wugang13/480/300" width="480" height="300" loading="lazy" alt="悬疑剧《雾港十三号》雨夜码头剧照构图"></div>
+          <div class="inner">
+            <span class="tag pink">悬疑</span>
+            <h3>雾港十三号 · 第 9 集</h3>
+            <p class="body-s">前 8 集免费，第 9 集 11 月 8 日 20:00 上线。第 7 集码头监控时间线对不上，是全剧第一个硬钩子。</p>
+            <p class="meta"><span>更新：周二、周五</span><span>单集 46 分钟</span></p>
+          </div>
+        </article>
+        <article class="card pick">
+          <div class="thumb"><img src="https://picsum.photos/seed/changanju/480/300" width="480" height="300" loading="lazy" alt="古装剧《长安十二时辰之外》街市场景构图"></div>
+          <div class="inner">
+            <span class="tag gold">古装</span>
+            <h3>长安之外 · 全 24 集</h3>
+            <p class="body-s">10 月 28 日一次性放出全季，非会员可看前 6 集。服化道参考西安博物院藏品，第 3 集胡商服饰有出处标注。</p>
+            <p class="meta"><span>已完结</span><span>单集 42 分钟</span></p>
+          </div>
+        </article>
+        <article class="card pick">
+          <div class="thumb"><img src="https://picsum.photos/seed/chengshiye/480/300" width="480" height="300" loading="lazy" alt="都市剧《城市夜归人》写字楼夜景构图"></div>
+          <div class="inner">
+            <span class="tag teal">都市</span>
+            <h3>城市夜归人 · 第 14 集</h3>
+            <p class="body-s">职场线写得实在，第 12 集加班改方案那段被不少观众截图。每周一、周四更新，会员多看 2 集。</p>
+            <p class="meta"><span>更新至 14</span><span>共 30 集</span></p>
+          </div>
+        </article>
+        <article class="card pick">
+          <div class="thumb"><img src="https://picsum.photos/seed/xiufu4k/480/300" width="480" height="300" loading="lazy" alt="4K 修复老电影胶片质感构图"></div>
+          <div class="inner">
+            <span class="tag">修复</span>
+            <h3>《小城之春》4K 修复版</h3>
+            <p class="body-s">资料馆 10 月 30 日上线的修复版本，字幕重做。片长 93 分钟，与 1948 年原版对白一致，仅调色差异。</p>
+            <p class="meta"><span>免费</span><span>需实名</span></p>
+          </div>
+        </article>
+        <article class="card pick">
+          <div class="thumb"><img src="https://picsum.photos/seed/wilddoc/480/300" width="480" height="300" loading="lazy" alt="自然纪录片高山草甸构图"></div>
+          <div class="inner">
+            <span class="tag">纪录片</span>
+            <h3>《高原之上》第 2 季</h3>
+            <p class="body-s">B 站 11 月 4 日限免开播，共 6 集。第 2 集拍到藏羚羊迁徙，摄制组在可可西里蹲了 41 天。</p>
+            <p class="meta"><span>每周三</span><span>限免</span></p>
+          </div>
+        </article>
+        <article class="card pick">
+          <div class="thumb"><img src="https://picsum.photos/seed/shaonian/480/300" width="480" height="300" loading="lazy" alt="青春剧校园球场构图"></div>
+          <div class="inner">
+            <span class="tag pink">青春</span>
+            <h3>《回声球场》第 6 集</h3>
+            <p class="body-s">篮球线在 11 月 5 日更新，前 6 集免费。第 5 集比赛剪辑被观众指出走步没吹，评论区吵了两天。</p>
+            <p class="meta"><span>更新：周三</span><span>共 20 集</span></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sec anchor-offset" id="latest">
+      <div class="sec-head">
+        <h2>最新更新：11 月 6 日至 8 日排期</h2>
+        <span class="hint">按上线时间排</span>
+      </div>
+      <div class="card">
+        <ul class="tlist">
+          <li><span class="no">1</span><span class="txt"><strong>雾港十三号 第 9 集</strong><span>11 月 8 日 20:00｜平台 A｜非会员延后 24 小时</span></span></li>
+          <li><span class="no">2</span><span class="txt"><strong>城市夜归人 第 14 集</strong><span>11 月 8 日 18:00｜平台 B｜会员可看第 16 集</span></span></li>
+          <li><span class="no">3</span><span class="txt"><strong>回声球场 第 6 集</strong><span>11 月 7 日 22:00｜平台 C｜限时免费 7 天</span></span></li>
+          <li><span class="no">4</span><span class="txt"><strong>高原之上 第 2 季 第 3 集</strong><span>11 月 7 日 12:00｜B 站｜限免至 11 月 14 日</span></span></li>
+          <li><span class="no">5</span><span class="txt"><strong>长安之外 花絮特辑</strong><span>11 月 6 日 10:00｜平台 A｜12 分钟，免费</span></span></li>
+          <li><span class="no">6</span><span class="txt"><strong>《乌鸦与麻雀》修复版</strong><span>11 月 6 日 15:00｜资料馆线上库｜需实名</span></span></li>
+          <li><span class="no">7</span><span class="txt"><strong>刑侦档案 第 8 集</strong><span>11 月 6 日 20:00｜平台 D｜前 4 集免费</span></span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="sec anchor-offset" id="cats">
+      <div class="sec-head">
+        <h2>分类入口：按类型找你常看的</h2>
+      </div>
+      <div class="cats">
+        <a class="cat" href="/#picks"><strong>悬疑推理剧</strong><span>26 部在更 · 每周二、五</span></a>
+        <a class="cat" href="/#picks"><strong>古装历史剧</strong><span>18 部 · 服化道考据标注</span></a>
+        <a class="cat" href="/#picks"><strong>都市职场剧</strong><span>21 部 · 更新最密</span></a>
+        <a class="cat" href="/#picks"><strong>刑侦罪案剧</strong><span>14 部 · 含真实案件改编</span></a>
+        <a class="cat" href="/#picks"><strong>青春校园剧</strong><span>12 部 · 集数偏短</span></a>
+        <a class="cat" href="/#picks"><strong>自然纪录片</strong><span>9 部 · 多为限免</span></a>
+        <a class="cat" href="/#deep"><strong>4K 修复老片</strong><span>37 部 · 资料馆片单</span></a>
+        <a class="cat" href="/#rank"><strong>海外剧字幕版</strong><span>16 部 · 注意字幕版本</span></a>
+        <a class="cat" href="/#guide"><strong>短视频微短剧</strong><span>单集 3—8 分钟</span></a>
+      </div>
+    </section>
+
+    <section class="sec anchor-offset" id="deep">
+      <div class="sec-head">
+        <h2>深度解析：超前点映把免费集数挤掉了</h2>
+        <span class="hint">一个可被反驳的判断</span>
+      </div>
+      <div class="deep">
+        <p>一个具体的判断：2026 年下半年起，视频平台把“前两集免费”的惯例松动了，原因是超前点映把免费窗口整体前移。可核对的数据在下面这张表里。</p>
+
+        <h3>案例时间线：三部剧的免费集数变化</h3>
+        <table>
+          <caption style="text-align:left;font-size:.8rem;color:#6d637a;padding-bottom:6px">数据来源：各平台剧集页 11 月 1 日快照，人工逐集核对</caption>
+          <thead>
+            <tr><th>剧名</th><th>首播日</th><th>免费集数</th><th>超前点映</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>雾港十三号</td><td>10 月 14 日</td><td>前 8 集</td><td>无</td></tr>
+            <tr><td>城市夜归人</td><td>10 月 20 日</td><td>前 6 集</td><td>第 13 集起</td></tr>
+            <tr><td>回声球场</td><td>10 月 1 日</td><td>前 6 集</td><td>第 5 集起</td></tr>
+          </tbody>
+        </table>
+        <p>回声球场是反常的那部，第 5 集就开始点映，等于免费只保住了 4 集。它在平台 C 的会员页把“前 6 集免费”写在标题区，实际第 5 集需要点映券，11 月 5 日有观众在剧集评论区贴出截图，官方 11 月 6 日回应称“页面文案将在下一个版本更正”。</p>
+
+        <div class="claim">
+          <b>可被反驳的点：</b>如果只看头部三部悬疑剧，免费集数都保住了 6 集以上，那么“免费窗口前移”只在小体量剧上成立，不足以概括整个平台策略。
+        </div>
+
+        <h3>说法差异：平台口径与用户实测</h3>
+        <p>平台 A 在 10 月 30 日的招商稿里写“持续保障用户免费观看权益”，未给集数。用户侧的可核对事实是：雾港十三号第 9 集非会员 11 月 9 日 20:00 才可看，比会员晚 24 小时；城市夜归人同类延迟为 48 小时。同一平台内部两套延迟标准，说明延迟天数按剧签，不按平台统一规则。</p>
+
+        <h3>规则前后变化：广告时长折算</h3>
+        <p>另一个可量化的口径是广告折算。11 月 2 日起，平台 B 把非会员单集贴片从 75 秒调到 90 秒，并把中插从 1 次增到 2 次。按一集 45 分钟算，非会员看 30 集要多付出约 37 分钟广告时间——这个数字可以自己拿手机计时核对，误差在 10 秒内。</p>
+
+        <h3>转述与推测要分开</h3>
+        <p>转述：某剧组宣发在 11 月 4 日的直播里说“免费集数是跟平台一起商量定的”，没有给出集数依据。推测：平台把免费集数当成拉新杠杆，剧越新、投资越大，免费集数越保守。这条推测目前只有三部剧支撑，样本不足，等 11 月中下旬新剧上线再验证。</p>
+
+        <blockquote>
+          “第 5 集就要点映券，页面写着前 6 集免费，这不是文字游戏吗？”
+          <cite>——平台 C 剧集评论区，用户 @看片不打盹，11 月 5 日 23:41</cite>
+        </blockquote>
+
+        <h3>判断拆解：三个可核对项</h3>
+        <ul>
+          <li>免费集数是否与页面文案一致：逐集点开看是否出现付费标识。</li>
+          <li>延迟天数是否写进剧集页：找“会员抢先看”旁的角标文字。</li>
+          <li>广告时长是否变化：同一账号、同一设备，隔周计时对比。</li>
+        </ul>
+        <p>三项都能在一部剧的页面内完成核对，不需要跨平台。争议点集中在第二项，因为延迟天数经常只在会员购买页出现，剧集页不写。</p>
+      </div>
+    </section>
+
+    <section class="sec anchor-offset" id="guide">
+      <div class="sec-head">
+        <h2>体验指南：从搜剧到开播的五步</h2>
+      </div>
+      <ol class="steps">
+        <li><strong>先确认集数与更新节奏。</strong>剧集页的“更新至第几集”比“共几集”更可信，后者常含未播部分。</li>
+        <li><strong>核对免费标识。</strong>点开第一集看是否有 60 秒以上贴片，有贴片通常意味着这一集免费。</li>
+        <li><strong>查字幕版本。</strong>海外剧优先选“简中硬字幕”，软字幕在部分播放器会错位。</li>
+        <li><strong>设一个追剧提醒。</strong>周二、周五更新的剧容易忘，平台自带提醒比备忘录可靠。</li>
+        <li><strong>记录已看集数。</strong>跨平台追同一部剧时，用剧名加集数做备注，避免重复看第 7 集。</li>
+      </ol>
+    </section>
+
+    <section class="sec anchor-offset" id="rank">
+      <div class="sec-head">
+        <h2>热度榜单：11 月第一周讨论量</h2>
+        <span class="hint">按公开评论数与弹幕数估算</span>
+      </div>
+      <div class="grid g2">
+        <div class="card">
+          <ul class="tlist">
+            <li><span class="no">1</span><span class="txt"><strong>雾港十三号</strong><span>评论 2.4 万 · 弹幕 18.6 万</span></span></li>
+            <li><span class="no">2</span><span class="txt"><strong>城市夜归人</strong><span>评论 1.9 万 · 弹幕 12.2 万</span></span></li>
+            <li><span class="no">3</span><span class="txt"><strong>回声球场</strong><span>评论 1.1 万 · 弹幕 9.4 万</span></span></li>
+            <li><span class="no">4</span><span class="txt"><strong>刑侦档案</strong><span>评论 8600 · 弹幕 7.1 万</span></span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="font-size:.95rem">口碑分层</h3>
+          <p class="body-s">按豆瓣短评前 200 条人工归类，争议主要在两处：回声球场第 5 集比赛判罚，雾港十三号第 7 集时间线。前者讨论量更大但持续时间短，后者两天内被剪成 30 多条二创。</p>
+          <div class="tags" style="margin-top:10px">
+            <a href="/#picks">悬疑推理剧推荐</a>
+            <a href="/#picks">都市职场剧免费看</a>
+            <a href="/#deep">超前点映规则</a>
+            <a href="/#guide">海外剧字幕版本</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec anchor-offset" id="faq">
+      <div class="sec-head">
+        <h2>常见问题</h2>
+      </div>
+      <details class="faq">
+        <summary>悬疑剧前几集免费，后面一定要会员吗？</summary>
+        <div class="ans">不一定。免费集数在剧集页有标注，但部分剧会在第 5 集起插入点映券。判断方法是逐集点开，看播放按钮旁是否出现“点映”角标。雾港十三号前 8 集全免，第 9 集起非会员延迟 24 小时。</div>
+      </details>
+      <details class="faq">
+        <summary>4K 修复老片在哪里能免费看？</summary>
+        <div class="ans">中国电影资料馆线上库目前有 37 部修复片，需实名注册，免费且无广告。11 月 6 日上线《乌鸦与麻雀》修复版，片长 106 分钟。画质分 1080P 与 4K 两档，4K 需在桌面端播放。</div>
+      </details>
+      <details class="faq">
+        <summary>海外剧字幕版怎么选才不出错？</summary>
+        <div class="ans">优先看字幕文件是否内嵌。简中硬字幕在手机端最稳；软字幕在部分播放器会与画面错位 0.3 秒左右，试看 1 分钟即可判断。字幕组署名通常出现在片头 8 秒内。</div>
+      </details>
+      <details class="faq">
+        <summary>城市夜归人更新到第几集了？</summary>
+        <div class="ans">11 月 8 日更新至第 14 集，会员可看第 16 集。非会员延迟 48 小时，也就是第 14 集在 11 月 10 日 18:00 后免费。全剧共 30 集，预计 12 月中旬完结。</div>
+      </details>
+      <details class="faq">
+        <summary>标着 1080P 的片源为什么看起来糊？</summary>
+        <div class="ans">常见于非正规站点，实际是 480P 拉伸到 1080P 再压缩。可核对方法：暂停后看画面细节，人物发丝与字幕边缘是否发虚；或在播放器里查看实际分辨率。正规平台的清晰度标识与码率基本对应。</div>
+      </details>
+    </section>
+
+    <section class="sec anchor-offset" id="comments">
+      <div class="sec-head">
+        <h2>用户评论</h2>
+        <span class="hint">含中性反馈</span>
+      </div>
+      <div class="cmts">
+        <div class="cmt">
+          <div class="who"><span class="avatar">林</span><span>林间小路 · 11 月 7 日</span><span class="star">★★★★☆</span></div>
+          <p>雾港十三号第 7 集那个监控时间线，我暂停对了三遍，前后差了 17 分钟。编剧要么埋了伏笔，要么就是剪辑失误，等第 9 集给答案。</p>
+        </div>
+        <div class="cmt">
+          <div class="who"><span class="avatar">阿</span><span>阿七不吃香菜 · 11 月 6 日</span><span class="star">★★★☆☆</span></div>
+          <p>回声球场第 5 集那个走步，慢放确实没吹。评论区吵了两天，官方到现在没回应，这点处理不太行。</p>
+        </div>
+        <div class="cmt">
+          <div class="who"><span class="avatar">周</span><span>周末补剧 · 11 月 6 日</span><span class="star">★★★★★</span></div>
+          <p>资料馆的《小城之春》修复版真不错，字幕重做后清楚多了。就是得实名注册，流程有点长，花了六分钟。</p>
+        </div>
+        <div class="cmt">
+          <div class="who"><span class="avatar">老</span><span>老陈看片 · 11 月 5 日</span><span class="star">★★☆☆☆</span></div>
+          <p>平台 B 的广告从 75 秒变 90 秒，中插还多了。我计了一集，实际广告 3 分 12 秒，比标的多 20 多秒。</p>
+        </div>
+        <div class="cmt">
+          <div class="who"><span class="avatar">麦</span><span>麦田守望者 · 11 月 5 日</span><span class="star">★★★★☆</span></div>
+          <p>高原之上第 2 集藏羚羊迁徙那段，镜头稳得不像野外拍的。查了下摄制组在可可西里待了 41 天，值这个时间。</p>
+        </div>
+        <div class="cmt">
+          <div class="who"><span class="avatar">D</span><span>Dreamer_09 · 11 月 4 日</span><span class="star">★★★☆☆</span></div>
+          <p>城市夜归人第 12 集改方案那段被夸得有点过，职场细节确实真实，但节奏拖了。第 13 集开始点映，免费党得再等。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec anchor-offset" id="news">
+      <div class="sec-head">
+        <h2>相关资讯</h2>
+        <span class="hint">四条短讯</span>
+      </div>
+      <div class="grid g2">
+        <div class="card">
+          <span class="tag teal">平台规则</span>
+          <h3 class="title-s">平台 C 11 月 6 日回应页面文案</h3>
+          <p class="body-s">针对回声球场“前 6 集免费”与实际不符的反馈，平台称下一个版本更正文案，未说明是否补偿点映券。</p>
+        </div>
+        <div class="card">
+          <span class="tag gold">展映</span>
+          <h3 class="title-s">视听中国展播季排 26 部</h3>
+          <p class="body-s">10 月 28 日公布片单，含 9 部纪录片、17 部剧集，均在指定时段免费，单集最长 50 分钟。</p>
+        </div>
+        <div class="card">
+          <span class="tag pink">二创</span>
+          <h3 class="title-s">雾港十三号时间线被剪成 30 多条二创</h3>
+          <p class="body-s">11 月 4 日至 6 日，B 站出现 30 多条逐帧分析视频，最高一条播放 47 万，集中在第 7 集码头段。</p>
+        </div>
+        <div class="card">
+          <span class="tag">修复</span>
+          <h3 class="title-s">资料馆新增 4 部 4K 修复片</h3>
+          <p class="body-s">11 月 1 日上线，含《乌鸦与麻雀》《小城之春》，修复说明附在片头，标注了调色与声轨处理方式。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec anchor-offset" id="related">
+      <div class="sec-head">
+        <h2>相关推荐</h2>
+      </div>
+      <div class="card">
+        <div class="tags">
+          <a href="/#picks">悬疑剧时间线伏笔</a>
+          <a href="/#picks">都市职场剧加班描写</a>
+          <a href="/#deep">超前点映怎么算钱</a>
+          <a href="/#guide">简中硬字幕与软字幕</a>
+          <a href="/#rank">刑侦剧真实案件改编</a>
+          <a href="/#deep">4K 修复片调色差异</a>
+          <a href="/#latest">微短剧单集时长</a>
+          <a href="/#faq">免费集数怎么核对</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <aside class="sidebar" aria-label="侧栏">
+    <div class="side-card">
+      <h2>频道速览</h2>
+      <ul class="side-nav" id="sideNav">
+        <li><a href="/#overview">领域概览</a></li>
+        <li><a href="/#picks">本周精选</a></li>
+        <li><a href="/#latest">最新更新</a></li>
+        <li><a href="/#cats">分类入口</a></li>
+        <li><a href="/#deep">深度解析</a></li>
+        <li><a href="/#guide">体验指南</a></li>
+        <li><a href="/#rank">热度榜单</a></li>
+        <li><a href="/#faq">常见问题</a></li>
+        <li><a href="/#comments">用户评论</a></li>
+        <li><a href="/#news">相关资讯</a></li>
+        <li><a href="/#related">相关推荐</a></li>
+      </ul>
+    </div>
+    <div class="side-card">
+      <h2>近三日上线</h2>
+      <ul class="mini">
+        <li><strong>雾港十三号 第 9 集</strong><span>11 月 8 日 20:00</span></li>
+        <li><strong>城市夜归人 第 14 集</strong><span>11 月 8 日 18:00</span></li>
+        <li><strong>回声球场 第 6 集</strong><span>11 月 7 日 22:00</span></li>
+        <li><strong>《乌鸦与麻雀》修复版</strong><span>11 月 6 日 15:00</span></li>
+      </ul>
+    </div>
+    <div class="side-card">
+      <h2>说明</h2>
+      <p class="notice-box">片单条目为示例数据，用于演示排期与免费集数的呈现方式。更新时间以 11 月 8 日为校对基准，具体以平台剧集页为准。</p>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="fbrand">
+          <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
+            <rect width="64" height="64" rx="14" fill="#ff5c8a"/>
+            <path d="M23 17l23 15-23 15z" fill="#1b1030"/>
+          </svg>
+          <strong>操死你免费看</strong>
+        </div>
+        <p class="fpos">把免费集数、更新时间和画质版本摊开写，追剧少走一段弯路。</p>
+      </div>
+      <div>
+        <h3>剧集频道</h3>
+        <ul>
+          <li><a href="/#picks">悬疑推理剧</a></li>
+          <li><a href="/#picks">古装历史剧</a></li>
+          <li><a href="/#picks">都市职场剧</a></li>
+          <li><a href="/#picks">刑侦罪案剧</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>观看帮助</h3>
+        <ul>
+          <li><a href="/#guide">免费观看路径</a></li>
+          <li><a href="/#deep">超前点映规则</a></li>
+          <li><a href="/#faq">免费集数核对</a></li>
+          <li><a href="/#guide">字幕版本选择</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>片单与服务</h3>
+        <ul>
+          <li><a href="/#rank">热度榜单</a></li>
+          <li><a href="/#deep">4K 修复片单</a></li>
+          <li><a href="/#latest">更新排期</a></li>
+          <li><a href="/#comments">用户评论</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>示例数据说明：条目、评论与数字均为演示内容，日期以 2026 年 11 月 8 日为基准。</span>
+      <span>© 2026 操死你免费看 · 内容校对 11 月 8 日</span>
+    </div>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="回到顶部" title="回到顶部">↑</button>
+
+<script>
+(function(){
+  var navToggle = document.getElementById('navToggle');
+  var mainnav = document.getElementById('mainnav');
+  if(navToggle && mainnav){
+    navToggle.addEventListener('click', function(){
+      var open = mainnav.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    mainnav.addEventListener('click', function(e){
+      if(e.target.tagName === 'A' && window.innerWidth <= 720){
+        mainnav.classList.remove('open');
+        navToggle.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  var toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 480){ toTop.classList.add('show'); }
+    else { toTop.classList.remove('show'); }
+  }, {passive:true});
+  toTop.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  var secs = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+  var links = Array.prototype.slice.call(document.querySelectorAll('#sideNav a'));
+  function highlight(){
+    var pos = window.scrollY + 160;
+    var current = secs.length ? secs[0].id : '';
+    secs.forEach(function(s){ if(s.offsetTop <= pos) current = s.id; });
+    links.forEach(function(a){
+      var hit = a.getAttribute('href') === '/#' + current;
+      a.classList.toggle('active', hit);
+    });
+  }
+  window.addEventListener('scroll', highlight, {passive:true});
+  window.addEventListener('resize', highlight);
+  highlight();
+
+  var form = document.getElementById('searchForm');
+  var input = document.getElementById('q');
+  var msg = document.getElementById('searchMsg');
+  var items = Array.prototype.slice.call(document.querySelectorAll('main h3, main .tlist .txt strong, main .cat strong, main summary'));
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var kw = input.value.trim();
+    items.forEach(function(el){ el.style.background = ''; });
+    if(!kw){ msg.textContent = '输入剧名、演员或类型再查找。'; return; }
+    var hits = items.filter(function(el){ return el.textContent.indexOf(kw) !== -1; });
+    if(hits.length === 0){
+      msg.textContent = '没有找到与“' + kw + '”直接相关的内容，试试换一个剧名或类型词。';
+      return;
+    }
+    msg.textContent = '找到 ' + hits.length + ' 条相关内容，已高亮。';
+    hits.forEach(function(el){ el.style.background = '#fff6dc'; });
+    var first = hits[0];
+    var y = first.getBoundingClientRect().top + window.scrollY - 130;
+    window.scrollTo({top: y, behavior:'smooth'});
+  });
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "name":"操死你免费看",
+  "description":"整理剧集更新时间、免费集数与画质版本信息的观影信息站。",
+  "inLanguage":"zh-CN"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"悬疑剧前几集免费，后面一定要会员吗？","acceptedAnswer":{"@type":"Answer","text":"不一定。免费集数在剧集页有标注，但部分剧会在第5集起插入点映券。判断方法是逐集点开，看播放按钮旁是否出现点映角标。"}},
+    {"@type":"Question","name":"4K修复老片在哪里能免费看？","acceptedAnswer":{"@type":"Answer","text":"中国电影资料馆线上库目前有37部修复片，需实名注册，免费且无广告。11月6日上线乌鸦与麻雀修复版，片长106分钟。"}},
+    {"@type":"Question","name":"海外剧字幕版怎么选才不出错？","acceptedAnswer":{"@type":"Answer","text":"优先看字幕文件是否内嵌。简中硬字幕在手机端最稳；软字幕在部分播放器会与画面错位0.3秒左右，试看1分钟即可判断。"}},
+    {"@type":"Question","name":"城市夜归人更新到第几集了？","acceptedAnswer":{"@type":"Answer","text":"11月8日更新至第14集，会员可看第16集。非会员延迟48小时，全剧共30集。"}},
+    {"@type":"Question","name":"标着1080P的片源为什么看起来糊？","acceptedAnswer":{"@type":"Answer","text":"常见于非正规站点，实际是480P拉伸到1080P再压缩。可核对方法为暂停后看人物发丝与字幕边缘是否发虚，或在播放器里查看实际分辨率。"}}
+  ]
+}
+</script>
+</body>
+                                                                                      </html>
