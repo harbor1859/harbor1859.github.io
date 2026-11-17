@@ -1,0 +1,1536 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>集芳阁云搜最新-资源检索与内容导航观察</title>
+<meta name="description" content="集芳阁云搜最新是围绕云盘资源检索与信息导航的观察站，整理搜索入口、类目索引、检索技巧与版本变化记录，帮助用户判断结果质量、核对来源与更新节奏，并提供可复用的查找路径与示例条目。">
+<meta name="keywords" content="集芳阁云搜最新">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b3a5b'/%3E%3Ccircle cx='28' cy='28' r='13' fill='none' stroke='%23e8b04b' stroke-width='5'/%3E%3Cline x1='38' y1='38' x2='52' y2='52' stroke='%23e8b04b' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "集芳阁云搜最新",
+  "inLanguage": "zh-CN",
+  "description": "云盘资源检索与信息导航观察站，记录搜索入口、类目索引、检索技巧与版本变化。"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "zh-CN",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "云搜索引一天更新几次？",
+      "acceptedAnswer": {"@type": "Answer", "text": "按公开更新日志，常规索引在每天 06:30、12:30、18:30 各同步一次，热门类目在大盘波动时会追加一次 22:00 的增量同步。三次全量同步的耗时在 11 月 3 日的记录里是 18 分钟到 34 分钟不等。"}
+    },
+    {
+      "@type": "Question",
+      "name": "搜索结果里的失效链接怎么处理？",
+      "acceptedAnswer": {"@type": "Answer", "text": "失效链接由抓取队列标记为“待复核”，在结果页以灰色状态显示。用户可在条目右下角提交失效反馈，反馈进入复核池后通常在 24 小时内被重新请求一次，连续两次失败的条目会从主结果中降权。"}
+    },
+    {
+      "@type": "Question",
+      "name": "为什么同类目搜出的结果数量差别很大？",
+      "acceptedAnswer": {"@type": "Answer", "text": "结果数量取决于该类目被公开索引的条目规模。文档类目因文件命名规范统一，往往命中更多；影音类目因文件名多含版本、字幕、分辨率后缀，同一部作品可能拆成十几个条目，去重前数量虚高。"}
+    },
+    {
+      "@type": "Question",
+      "name": "多关键词组合搜索有什么规则？",
+      "acceptedAnswer": {"@type": "Answer", "text": "空格分隔表示同时命中，竖线表示任一词命中，减号排除词。文件名里的年份、分辨率、语言标签可以作为筛选词直接叠加，例如在词后追加 2024 或 1080p 能明显减少无关结果。"}
+    },
+    {
+      "@type": "Question",
+      "name": "索引结果能直接下载吗？",
+      "acceptedAnswer": {"@type": "Answer", "text": "索引只记录条目的来源页与文件描述，不托管文件。是否可下载取决于原来源站点当时的权限状态与链接有效性，结果页里的“来源域名”和“首见时间”用于判断条目新鲜度。"}
+    },
+    {
+      "@type": "Question",
+      "name": "版本更新会不会清空旧索引？",
+      "acceptedAnswer": {"@type": "Answer", "text": "不会整表清空。升级采用新库并行写入、旧库延迟下线的做法，10 月 26 日到 11 月 5 日之间的两次数据结构调整都保留了旧索引 7 天可查，之后才切换。"}
+    }
+  ]
+}
+</script>
+<style>
+:root{
+  --ink:#16202b;
+  --ink-2:#3d4c5c;
+  --ink-3:#6b7b8c;
+  --paper:#f6f4ef;
+  --card:#ffffff;
+  --line:#dcd7cd;
+  --line-2:#e9e5dc;
+  --brand:#1b3a5b;
+  --brand-2:#2c5d86;
+  --accent:#c8892a;
+  --accent-soft:#f3e3c6;
+  --ok:#2f6b4f;
+  --warn:#a05a1c;
+  --radius:10px;
+  --radius-sm:6px;
+  --shadow:0 1px 2px rgba(22,32,43,.06),0 8px 24px rgba(22,32,43,.07);
+  --shadow-sm:0 1px 2px rgba(22,32,43,.06);
+  --sp-1:6px;
+  --sp-2:12px;
+  --sp-3:18px;
+  --sp-4:26px;
+  --sp-5:38px;
+  --sp-6:54px;
+  --font:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --stick-h:0px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--font);
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.75;
+  font-size:16px;
+  -webkit-text-size-adjust:100%;
+}
+h1,h2,h3,h4{line-height:1.35;margin:0}
+p{margin:0 0 1em}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+ul,ol{margin:0 0 1em;padding-left:1.3em}
+li{margin:.3em 0}
+img{max-width:100%;display:block}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+/* 吸顶公告 + 页头 */
+.sticky-wrap{
+  position:sticky;
+  top:0;
+  z-index:60;
+}
+.announce{
+  background:var(--brand);
+  color:#eef3f8;
+  font-size:13.5px;
+  padding:7px var(--sp-3);
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  text-align:center;
+}
+.announce .dot{
+  display:inline-block;
+  width:7px;height:7px;border-radius:50%;
+  background:var(--accent);
+  flex:0 0 auto;
+}
+.announce strong{color:#f5d59b;font-weight:600}
+.announce a{color:#f5d59b;text-decoration:underline;text-underline-offset:2px}
+
+.site-head{
+  background:rgba(246,244,239,.96);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  box-shadow:var(--shadow-sm);
+}
+.head-inner{
+  max-width:1180px;
+  margin:0 auto;
+  padding:10px var(--sp-3);
+  display:flex;
+  align-items:center;
+  gap:var(--sp-3);
+  flex-wrap:wrap;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;
+  font-size:17px;
+  color:var(--brand);
+  letter-spacing:.02em;
+  flex:0 0 auto;
+}
+.brand:hover{text-decoration:none}
+.brand svg{width:34px;height:34px;flex:0 0 auto}
+.main-nav{
+  display:flex;
+  gap:2px;
+  flex-wrap:wrap;
+  margin-left:auto;
+  align-items:center;
+}
+.main-nav a{
+  color:var(--ink-2);
+  font-size:14px;
+  padding:6px 9px;
+  border-radius:var(--radius-sm);
+  white-space:nowrap;
+}
+.main-nav a:hover{background:#ece8df;color:var(--brand);text-decoration:none}
+.menu-btn{
+  display:none;
+  margin-left:auto;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  padding:7px 12px;
+  font-size:14px;
+  color:var(--brand);
+  cursor:pointer;
+  align-items:center;
+  gap:7px;
+}
+.menu-btn .bars{display:inline-flex;flex-direction:column;gap:3px}
+.menu-btn .bars i{display:block;width:16px;height:2px;background:var(--brand);border-radius:1px}
+.search-box{
+  display:flex;
+  gap:0;
+  align-items:stretch;
+  flex:0 0 auto;
+  min-width:0;
+}
+.search-box input{
+  font-family:inherit;
+  font-size:14px;
+  padding:7px 10px;
+  border:1px solid var(--line);
+  border-right:none;
+  border-radius:var(--radius-sm) 0 0 var(--radius-sm);
+  background:#fff;
+  color:var(--ink);
+  width:168px;
+  min-width:0;
+}
+.search-box button{
+  border:1px solid var(--brand);
+  background:var(--brand);
+  color:#fff;
+  font-size:14px;
+  padding:7px 13px;
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  cursor:pointer;
+}
+.search-box button:hover{background:var(--brand-2)}
+.search-feedback{
+  flex-basis:100%;
+  font-size:13px;
+  color:var(--ink-3);
+  padding:2px 2px 4px;
+  min-height:0;
+}
+.search-feedback:empty{display:none}
+.search-feedback b{color:var(--warn)}
+
+/* 首屏 */
+.hero{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(1000px 380px at 82% -10%, #dde7f0 0%, transparent 62%),
+    linear-gradient(180deg,#fbfaf6 0%, #f0eee7 100%);
+  border-bottom:1px solid var(--line);
+}
+.hero-inner{
+  max-width:1180px;
+  margin:0 auto;
+  padding:var(--sp-6) var(--sp-3) var(--sp-5);
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+  gap:var(--sp-5);
+  align-items:center;
+}
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:13px;
+  color:var(--brand);
+  border:1px solid #c8d3dd;
+  background:#fff;
+  padding:4px 11px;
+  border-radius:999px;
+  margin-bottom:var(--sp-2);
+}
+.hero-badge .pip{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{
+  font-size:clamp(28px,4.4vw,44px);
+  color:var(--brand);
+  letter-spacing:.01em;
+  margin-bottom:var(--sp-2);
+}
+.hero-lead{
+  font-size:16.5px;
+  color:var(--ink-2);
+  max-width:34em;
+  margin-bottom:var(--sp-3);
+}
+.hero-lead em{font-style:normal;color:var(--brand);border-bottom:2px solid var(--accent-soft)}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:var(--sp-3)}
+.btn{
+  display:inline-block;
+  padding:9px 20px;
+  border-radius:var(--radius-sm);
+  font-size:15px;
+  border:1px solid var(--brand);
+  background:var(--brand);
+  color:#fff;
+  transition:transform .15s ease, background .15s ease;
+}
+.btn:hover{background:var(--brand-2);text-decoration:none;transform:translateY(-2px)}
+.btn.ghost{background:#fff;color:var(--brand)}
+.btn.ghost:hover{background:#eef2f6}
+.hero-stats{
+  display:flex;
+  gap:var(--sp-4);
+  flex-wrap:wrap;
+  font-size:13px;
+  color:var(--ink-3);
+  border-top:1px dashed var(--line);
+  padding-top:var(--sp-2);
+}
+.hero-stats b{
+  display:block;
+  font-size:22px;
+  color:var(--brand);
+  font-variant-numeric:tabular-nums;
+  line-height:1.3;
+}
+.hero-visual{position:relative;min-height:280px}
+.hero-visual svg{width:100%;height:auto;display:block}
+
+/* 通用区块 */
+.wrap{max-width:1180px;margin:0 auto;padding:0 var(--sp-3)}
+section.block{padding:var(--sp-5) 0;scroll-margin-top:calc(var(--stick-h) + 12px)}
+section.block + section.block{border-top:1px solid var(--line-2)}
+.sec-head{display:flex;align-items:flex-end;gap:var(--sp-3);flex-wrap:wrap;margin-bottom:var(--sp-3)}
+.sec-head h2{font-size:22px;color:var(--brand);letter-spacing:.01em}
+.sec-head .kicker{
+  font-size:12.5px;
+  color:var(--accent);
+  letter-spacing:.14em;
+  font-weight:700;
+  text-transform:uppercase;
+  display:block;
+  margin-bottom:2px;
+}
+.sec-head p{color:var(--ink-3);font-size:14px;margin:0;max-width:52ch}
+.sec-head .more{margin-left:auto;font-size:14px;white-space:nowrap}
+
+/* 三栏门户：主 + 侧 */
+.layout{
+  max-width:1180px;
+  margin:0 auto;
+  padding:0 var(--sp-3);
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 316px;
+  gap:var(--sp-5);
+  align-items:start;
+}
+.side{
+  position:sticky;
+  top:calc(var(--stick-h) + 16px);
+  display:flex;
+  flex-direction:column;
+  gap:var(--sp-3);
+}
+.side-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:var(--sp-3);
+  box-shadow:var(--shadow-sm);
+}
+.side-card h3{font-size:15px;color:var(--brand);margin-bottom:var(--sp-2);display:flex;align-items:center;gap:8px}
+.side-card h3::before{content:"";width:3px;height:14px;background:var(--accent);border-radius:2px}
+.side-nav{list-style:none;padding:0;margin:0;font-size:14px}
+.side-nav a{
+  display:block;
+  padding:5px 9px;
+  border-left:2px solid transparent;
+  color:var(--ink-2);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+}
+.side-nav a:hover{background:#f2efe8;text-decoration:none;color:var(--brand)}
+.side-nav a.active{background:#edf2f7;border-left-color:var(--brand);color:var(--brand);font-weight:600}
+.brief-list{list-style:none;padding:0;margin:0;font-size:13.5px}
+.brief-list li{padding:7px 0;border-bottom:1px dashed var(--line-2)}
+.brief-list li:last-child{border-bottom:none}
+.brief-list time{display:block;color:var(--ink-3);font-size:12px;font-variant-numeric:tabular-nums}
+.brief-list a{color:var(--ink-2)}
+.brief-list a:hover{color:var(--brand)}
+
+/* 卡片网格 */
+.grid{display:grid;gap:var(--sp-3)}
+.grid.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:var(--sp-3);
+  box-shadow:var(--shadow-sm);
+  transition:transform .15s ease, box-shadow .15s ease;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.card .tag{
+  align-self:flex-start;
+  font-size:12px;
+  background:var(--accent-soft);
+  color:#7a4d12;
+  padding:1px 8px;
+  border-radius:999px;
+  font-weight:600;
+}
+.card h3{font-size:16.5px;color:var(--ink)}
+.card h3 a{color:inherit}
+.card h3 a:hover{color:var(--brand);text-decoration:none}
+.card p{font-size:14px;color:var(--ink-2);margin:0}
+.card .meta{font-size:12.5px;color:var(--ink-3);margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
+.card-img{
+  width:100%;
+  height:132px;
+  object-fit:cover;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--line-2);
+}
+
+/* 紧凑列表 */
+.tight{list-style:none;padding:0;margin:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm)}
+.tight li{
+  display:grid;
+  grid-template-columns:64px minmax(0,1fr) auto;
+  gap:12px;
+  align-items:center;
+  padding:11px var(--sp-3);
+  border-bottom:1px solid var(--line-2);
+  margin:0;
+  font-size:14.5px;
+}
+.tight li:last-child{border-bottom:none}
+.tight li:hover{background:#faf8f3}
+.tight time{color:var(--ink-3);font-size:13px;font-variant-numeric:tabular-nums}
+.tight .st{font-size:12px;color:var(--ok);white-space:nowrap}
+.tight .st.pending{color:var(--warn)}
+.tight a{color:var(--ink)}
+.tight a:hover{color:var(--brand)}
+
+/* 分类标签索引 */
+.tag-index{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:var(--sp-3)}
+.tag-index a{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:6px 14px;
+  font-size:14px;
+  color:var(--ink-2);
+  box-shadow:var(--shadow-sm);
+}
+.tag-index a:hover{border-color:var(--brand);color:var(--brand);text-decoration:none}
+.tag-index .n{color:var(--ink-3);font-size:12.5px;font-variant-numeric:tabular-nums}
+
+/* 深度解析 */
+.article-main{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:var(--sp-4);
+  box-shadow:var(--shadow-sm);
+}
+.article-main h2{margin-bottom:var(--sp-2)}
+.article-main h3{font-size:17.5px;color:var(--brand);margin:var(--sp-3) 0 var(--sp-1)}
+.article-main p{color:var(--ink-2);font-size:15.5px}
+.article-main .claim{
+  border-left:3px solid var(--accent);
+  background:#fbf7ee;
+  padding:var(--sp-2) var(--sp-3);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  font-size:15.5px;
+  color:var(--ink);
+  margin:var(--sp-2) 0;
+}
+.check-table{width:100%;border-collapse:collapse;font-size:14px;margin:var(--sp-2) 0}
+.check-table th,.check-table td{
+  border:1px solid var(--line-2);
+  padding:8px 10px;
+  text-align:left;
+  vertical-align:top;
+}
+.check-table th{background:#f3f0e9;color:var(--brand);font-weight:600;font-size:13px}
+.check-table td b{color:var(--ink)}
+.fact-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-2);margin:var(--sp-2) 0}
+.fact-split .panel{
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  padding:var(--sp-2) var(--sp-3);
+  background:#fafaf7;
+  font-size:14px;
+}
+.fact-split .panel h4{font-size:13.5px;color:var(--brand);margin-bottom:6px}
+.fact-split .panel ul{margin:0;padding-left:1.1em}
+.fact-split .panel.spec{background:#f5f8fb;border-color:#d3e0ec}
+
+/* 步骤 */
+.steps{list-style:none;counter-reset:st;padding:0;margin:0;display:grid;gap:var(--sp-2)}
+.steps li{
+  counter-increment:st;
+  position:relative;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:var(--sp-2) var(--sp-3) var(--sp-2) 58px;
+  box-shadow:var(--shadow-sm);
+  margin:0;
+  font-size:14.5px;
+  color:var(--ink-2);
+}
+.steps li::before{
+  content:counter(st,decimal-leading-zero);
+  position:absolute;
+  left:16px;top:14px;
+  font-size:15px;
+  font-weight:700;
+  color:var(--accent);
+  font-variant-numeric:tabular-nums;
+}
+.steps li b{color:var(--ink);display:block;font-size:15px;margin-bottom:2px}
+
+/* 对照面板 */
+.compare{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:var(--card);
+  box-shadow:var(--shadow-sm);
+}
+.compare > div{padding:var(--sp-3)}
+.compare > div + div{border-left:1px solid var(--line-2)}
+.compare h3{font-size:15px;color:var(--brand);margin-bottom:var(--sp-1)}
+.compare ul{font-size:14px;color:var(--ink-2);margin:0;padding-left:1.1em}
+.compare .alt{background:#fbf9f4}
+
+/* 时间线 */
+.timeline{list-style:none;padding:0;margin:0;position:relative}
+.timeline li{
+  position:relative;
+  padding:0 0 var(--sp-3) 26px;
+  margin:0;
+  border-left:2px solid var(--line);
+  font-size:14.5px;
+}
+.timeline li:last-child{border-left-color:transparent;padding-bottom:0}
+.timeline li::before{
+  content:"";
+  position:absolute;
+  left:-7px;top:5px;
+  width:12px;height:12px;
+  border-radius:50%;
+  background:#fff;
+  border:2.5px solid var(--brand);
+}
+.timeline time{display:block;font-size:12.5px;color:var(--accent);font-weight:700;font-variant-numeric:tabular-nums}
+.timeline b{color:var(--ink)}
+.timeline p{margin:2px 0 0;color:var(--ink-2);font-size:14px}
+
+/* FAQ */
+.faq{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);box-shadow:var(--shadow-sm);overflow:hidden}
+.faq details + details{border-top:1px solid var(--line-2)}
+.faq summary{
+  cursor:pointer;
+  list-style:none;
+  padding:13px var(--sp-3);
+  font-size:15px;
+  font-weight:600;
+  color:var(--ink);
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  transition:background .15s ease;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{
+  content:"+";
+  flex:0 0 auto;
+  color:var(--accent);
+  font-weight:700;
+  width:14px;
+  line-height:1.6;
+}
+.faq details[open] summary::before{content:"−"}
+.faq summary:hover{background:#faf8f3}
+.faq .ans{padding:0 var(--sp-3) var(--sp-3) calc(var(--sp-3) + 24px);font-size:14.5px;color:var(--ink-2)}
+.faq .ans p{margin:0 0 .5em}
+.faq .ans p:last-child{margin-bottom:0}
+
+/* 评论 */
+.comments{display:grid;gap:var(--sp-2)}
+.cmt{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:var(--sp-2) var(--sp-3);
+  box-shadow:var(--shadow-sm);
+  font-size:14.5px;
+}
+.cmt .who{display:flex;align-items:center;gap:9px;margin-bottom:5px;font-size:13px;color:var(--ink-3)}
+.avatar{
+  width:28px;height:28px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:#e7e2d7;color:var(--brand);font-weight:700;font-size:13px;
+  flex:0 0 auto;
+}
+.cmt .who b{color:var(--ink);font-size:13.5px}
+.cmt p{margin:0;color:var(--ink-2)}
+.cmt p + p{margin-top:.45em}
+.cmt .ref{color:var(--brand-2);border-bottom:1px dotted #a9bfd3}
+
+/* 推荐标签 */
+.rec-tags{display:flex;flex-wrap:wrap;gap:9px}
+.rec-tags a{
+  font-size:14px;
+  padding:6px 13px;
+  background:#fdfcf8;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  color:var(--ink-2);
+}
+.rec-tags a:hover{border-color:var(--brand);color:var(--brand);text-decoration:none;background:#eef2f6}
+
+/* 榜单 */
+.rank{list-style:none;padding:0;margin:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);overflow:hidden}
+.rank li{
+  display:grid;
+  grid-template-columns:38px minmax(0,1fr) auto;
+  gap:12px;
+  align-items:center;
+  padding:11px var(--sp-3);
+  border-bottom:1px solid var(--line-2);
+  margin:0;
+  font-size:14.5px;
+}
+.rank li:last-child{border-bottom:none}
+.rank .rk{
+  font-weight:700;
+  color:var(--brand);
+  font-size:17px;
+  font-variant-numeric:tabular-nums;
+}
+.rank li:nth-child(-n+3) .rk{color:var(--accent)}
+.rank .score{font-size:12.5px;color:var(--ink-3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rank .sub{display:block;font-size:12.5px;color:var(--ink-3);font-weight:400}
+
+/* 引语卡 */
+.quote-card{
+  background:linear-gradient(160deg,#f0f4f8,#fbfaf6 70%);
+  border:1px solid #ccd9e5;
+  border-radius:var(--radius);
+  padding:var(--sp-3) var(--sp-4);
+  font-size:15.5px;
+  color:var(--ink);
+  position:relative;
+}
+.quote-card::before{
+  content:"“";
+  position:absolute;
+  top:-6px;left:12px;
+  font-size:52px;
+  color:#b9cee0;
+  font-family:Georgia,serif;
+  line-height:1;
+}
+.quote-card .q-meta{display:block;margin-top:8px;font-size:13px;color:var(--ink-3)}
+
+/* 页脚 */
+.site-foot{
+  background:var(--brand);
+  color:#c9d6e2;
+  margin-top:var(--sp-5);
+  font-size:14px;
+}
+.foot-inner{
+  max-width:1180px;
+  margin:0 auto;
+  padding:var(--sp-5) var(--sp-3) var(--sp-3);
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) repeat(3,minmax(0,1fr));
+  gap:var(--sp-4);
+}
+.site-foot h3{font-size:14px;color:#fff;margin-bottom:var(--sp-2);letter-spacing:.04em}
+.site-foot a{color:#c9d6e2}
+.site-foot a:hover{color:#f5d59b;text-decoration:none}
+.foot-brand .brand{color:#fff;font-size:19px;margin-bottom:10px}
+.foot-brand .brand svg{width:32px;height:32px}
+.foot-brand p{font-size:13.5px;color:#a9bccd;margin-bottom:10px;line-height:1.7}
+.foot-links{list-style:none;padding:0;margin:0;font-size:13.5px}
+.foot-links li{padding:3px 0}
+.foot-note{
+  grid-column:1/-1;
+  border-top:1px solid rgba(255,255,255,.14);
+  padding-top:var(--sp-2);
+  font-size:12.5px;
+  color:#93a8bc;
+  line-height:1.8;
+}
+.foot-note b{color:#c9d6e2;font-weight:600}
+
+/* 回到顶部 */
+.to-top{
+  position:fixed;
+  right:18px;
+  bottom:20px;
+  z-index:70;
+  width:44px;height:44px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--brand);
+  font-size:17px;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(8px);
+  transition:opacity .2s ease, transform .2s ease, visibility .2s;
+}
+.to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+.to-top:hover{background:#f1eee6}
+
+/* 响应式 */
+@media (max-width:960px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .side{position:static;order:2}
+  .hero-inner{grid-template-columns:minmax(0,1fr);padding-top:var(--sp-5)}
+  .hero-visual{max-width:460px;min-height:0}
+  .grid.g3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .foot-inner{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:720px){
+  .main-nav{
+    display:none;
+    flex-basis:100%;
+    margin-left:0;
+    padding:6px 0 4px;
+    border-top:1px solid var(--line-2);
+    order:5;
+  }
+  .main-nav.open{display:flex;flex-direction:column;align-items:stretch;gap:1px}
+  .main-nav a{padding:9px 10px}
+  .menu-btn{display:inline-flex}
+  .search-box{flex-basis:100%;order:4;margin-top:4px}
+  .search-box input{flex:1;width:auto}
+  .head-inner{gap:10px}
+  .grid.g3,.grid.g2{grid-template-columns:minmax(0,1fr)}
+  .fact-split{grid-template-columns:minmax(0,1fr)}
+  .compare{grid-template-columns:minmax(0,1fr)}
+  .compare > div + div{border-left:none;border-top:1px solid var(--line-2)}
+  .article-main{padding:var(--sp-3)}
+  .foot-inner{grid-template-columns:minmax(0,1fr);gap:var(--sp-3)}
+  .tight li{grid-template-columns:54px minmax(0,1fr);row-gap:2px}
+  .tight .st{grid-column:2;justify-self:start}
+  .rank li{grid-template-columns:32px minmax(0,1fr);row-gap:2px}
+  .rank .score{grid-column:2;justify-self:start}
+  section.block{padding:var(--sp-4) 0}
+  .hero h1{font-size:27px}
+  .to-top{right:12px;bottom:14px;width:40px;height:40px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  .card:hover,.btn:hover{transform:none}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="sticky-wrap" id="top">
+  <div class="announce" role="status">
+    <span class="dot" aria-hidden="true"></span>
+    <span><strong>集芳阁云搜最新</strong> 11月7日索引批次已上线：新增文档类目 <b>1,284</b> 条，失效复核队列清空 <b>36</b> 条。</span>
+    <a href="/#update">查看更新日志</a>
+  </div>
+  <header class="site-head">
+    <div class="head-inner">
+      <a class="brand" href="/#top" aria-label="集芳阁云搜最新 首页">
+        <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#1b3a5b"/>
+          <circle cx="28" cy="28" r="13" fill="none" stroke="#e8b04b" stroke-width="5"/>
+          <line x1="38" y1="38" x2="52" y2="52" stroke="#e8b04b" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="46" cy="18" r="3.5" fill="#7fb0d6"/>
+        </svg>
+        集芳阁云搜最新
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav">
+        <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>导航
+      </button>
+      <nav class="main-nav" id="mainNav" aria-label="主题导航">
+        <a href="/#overview">领域概览</a>
+        <a href="/#featured">精选推荐</a>
+        <a href="/#update">最新更新</a>
+        <a href="/#cats">类目索引</a>
+        <a href="/#deep">深度解析</a>
+        <a href="/#guide">体验指南</a>
+        <a href="/#news">相关资讯</a>
+        <a href="/#rank">热度榜</a>
+        <a href="/#faq">常见问题</a>
+      </nav>
+      <form class="search-box" id="searchForm" role="search" autocomplete="off">
+        <label for="q" class="sr-only" style="position:absolute;left:-9999px">站内查找</label>
+        <input type="search" id="q" name="q" placeholder="查找类目、条目、说法" aria-label="站内查找关键词">
+        <button type="submit">查找</button>
+      </form>
+      <div class="search-feedback" id="searchFeedback" aria-live="polite"></div>
+    </div>
+  </header>
+</div>
+
+<main>
+  <!-- 首屏 -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-inner">
+      <div>
+        <span class="hero-badge"><span class="pip" aria-hidden="true"></span>检索观察 · 2026年11月8日更新</span>
+        <h1 id="heroTitle">集芳阁云搜最新</h1>
+        <p class="hero-lead">把散落在各家网盘、论坛与文档站的公开文件描述收进一个可检索的索引。这里记录每次同步的时间、类目命中的差异，以及哪些结果值得点开、哪些只剩一个名字。<em>判断依据是文件名、来源域名和首见时间，不是搜索结果条数</em>。</p>
+        <div class="hero-actions">
+          <a class="btn" href="/#cats">进入类目索引</a>
+          <a class="btn ghost" href="/#deep">读检索方法解析</a>
+        </div>
+        <div class="hero-stats">
+          <div><b>27</b>个公开类目</div>
+          <div><b>4,916</b>条有效索引</div>
+          <div><b>3</b>次/日定时同步</div>
+          <div><b>24h</b>失效复核周期</div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 460 340" role="img">
+          <defs>
+            <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#e9f0f6"/>
+              <stop offset="1" stop-color="#f7f3ea"/>
+            </linearGradient>
+          </defs>
+          <rect x="6" y="18" width="448" height="304" rx="18" fill="url(#hg)" stroke="#d5dfe8"/>
+          <rect x="30" y="44" width="240" height="34" rx="17" fill="#fff" stroke="#ccd9e5"/>
+          <circle cx="52" cy="61" r="6.5" fill="none" stroke="#2c5d86" stroke-width="3"/>
+          <line x1="57" y1="66" x2="63" y2="72" stroke="#2c5d86" stroke-width="3" stroke-linecap="round"/>
+          <rect x="80" y="54" width="120" height="6" rx="3" fill="#d7e2ec"/>
+          <rect x="80" y="64" width="72" height="5" rx="2.5" fill="#e4ecf3"/>
+          <g>
+            <rect x="30" y="100" width="118" height="76" rx="10" fill="#fff" stroke="#e0e6ec"/>
+            <rect x="44" y="114" width="66" height="7" rx="3.5" fill="#b9cee0"/>
+            <rect x="44" y="128" width="90" height="5" rx="2.5" fill="#e2e8ee"/>
+            <rect x="44" y="139" width="52" height="5" rx="2.5" fill="#e2e8ee"/>
+            <rect x="44" y="154" width="34" height="10" rx="5" fill="#f3e3c6"/>
+          </g>
+          <g>
+            <rect x="160" y="100" width="118" height="76" rx="10" fill="#fff" stroke="#e0e6ec"/>
+            <rect x="174" y="114" width="54" height="7" rx="3.5" fill="#b9cee0"/>
+            <rect x="174" y="128" width="84" height="5" rx="2.5" fill="#e2e8ee"/>
+            <rect x="174" y="139" width="62" height="5" rx="2.5" fill="#e2e8ee"/>
+            <rect x="174" y="154" width="44" height="10" rx="5" fill="#d8e8dc"/>
+          </g>
+          <g>
+            <rect x="290" y="100" width="140" height="76" rx="10" fill="#1b3a5b"/>
+            <rect x="304" y="114" width="72" height="7" rx="3.5" fill="#5b81a4"/>
+            <rect x="304" y="128" width="102" height="5" rx="2.5" fill="#3d6183"/>
+            <rect x="304" y="139" width="60" height="5" rx="2.5" fill="#3d6183"/>
+            <rect x="304" y="154" width="48" height="10" rx="5" fill="#e8b04b"/>
+          </g>
+          <rect x="30" y="196" width="400" height="1.5" fill="#e2e6ea"/>
+          <g>
+            <rect x="30" y="214" width="400" height="26" rx="6" fill="#fff" stroke="#e6ebef"/>
+            <rect x="42" y="224" width="120" height="6" rx="3" fill="#cddaea"/>
+            <rect x="330" y="222" width="60" height="10" rx="5" fill="#e7efe8"/>
+          </g>
+          <g>
+            <rect x="30" y="250" width="400" height="26" rx="6" fill="#fff" stroke="#e6ebef"/>
+            <rect x="42" y="260" width="160" height="6" rx="3" fill="#cddaea"/>
+            <rect x="330" y="258" width="60" height="10" rx="5" fill="#f6ecd9"/>
+          </g>
+          <g>
+            <rect x="30" y="286" width="400" height="26" rx="6" fill="#fff" stroke="#e6ebef"/>
+            <rect x="42" y="296" width="96" height="6" rx="3" fill="#cddaea"/>
+            <rect x="330" y="294" width="60" height="10" rx="5" fill="#e7efe8"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="layout">
+    <div class="content-col">
+
+      <!-- 领域概览 -->
+      <section class="block" id="overview" aria-labelledby="overviewTitle">
+        <div class="sec-head">
+          <div>
+            <span class="kicker">Scope</span>
+            <h2 id="overviewTitle">云盘资源检索在做什么</h2>
+          </div>
+          <p>从抓取、去重到过期复核，一条索引要经过四道处理才会出现在结果里。</p>
+        </div>
+        <div class="grid g3">
+          <div class="card">
+            <span class="tag">抓取</span>
+            <h3><a href="/#deep">公开文件描述采集</a></h3>
+            <p>只收来源页本身对外可见的文件名、大小、上传时间和简介。按 11 月 6 日的批次表，单日抓取请求 18,240 次，其中 62% 来自论坛附件区。</p>
+            <div class="meta"><span>来源：抓取队列日报</span></div>
+          </div>
+          <div class="card">
+            <span class="tag">去重</span>
+            <h3><a href="/#deep">同一作品的多种命名</a></h3>
+            <p>《城市档案·成都篇》在索引里出现 14 个条目，去掉分辨率、字幕组、打包方式后缀后归并为 3 个版本，去重率约 79%。</p>
+            <div class="meta"><span>更新：11月5日</span></div>
+          </div>
+          <div class="card">
+            <span class="tag">复核</span>
+            <h3><a href="/#faq">失效标记与降权</a></h3>
+            <p>连续两次请求失败的条目从主结果降到“待确认”层，仍可查但不参与排序。11 月 7 日复核队列处理了 36 条。</p>
+            <div class="meta"><span>状态：正常</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 精选内容推荐 -->
+      <section class="block" id="featured" aria-labelledby="featuredTitle">
+        <div class="sec-head">
+          <div>
+            <span class="kicker">Picks</span>
+            <h2 id="featuredTitle">本周值得先看的条目</h2>
+          </div>
+          <a class="more" href="/#cats">全部类目 →</a>
+        </div>
+        <div class="grid g2">
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/jfg-doc-archive/560/300" width="560" height="300" loading="lazy" alt="档案类文档在索引中的条目列表缩略图">
+            <span class="tag">文档档案</span>
+            <h3><a href="/#deep">地方志扫描件索引合集 2026 秋</a></h3>
+            <p>涵盖川、陕、晋三省 1978 至 2005 年的县志影印件，文件名带卷次号，检索时可直接用“卷三”叠词定位。共 218 条。</p>
+            <div class="meta"><span>首见 11月2日</span><span>来源 3 个域名</span></div>
+          </article>
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/jfg-audio-wave/560/300" width="560" height="300" loading="lazy" alt="音频课程文件在检索结果中的波形封面">
+            <span class="tag">音频课程</span>
+            <h3><a href="/#guide">公开课录音整理版与原始版差异</a></h3>
+            <p>同一门课有 64kbps 原始录音和 128kbps 降噪整理版两种，后者删去了约 11 分钟课间对话。收录音频时先看码率标签。</p>
+            <div class="meta"><span>首见 10月29日</span><span>版本 2 种</span></div>
+          </article>
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/jfg-software-list/560/300" width="560" height="300" loading="lazy" alt="开源软件旧版本安装包列表页">
+            <span class="tag">软件归档</span>
+            <h3><a href="/#rank">离线安装包旧版本留存情况</a></h3>
+            <p>7 个常用开发工具的历史安装包，2019 年前版本仅存 4 成。目录页里标注了 SHA-1 校验值，下载前可先比对。</p>
+            <div class="meta"><span>首见 11月4日</span><span>留存率 41%</span></div>
+          </article>
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/jfg-map-sheet/560/300" width="560" height="300" loading="lazy" alt="旧地图分幅扫描图示">
+            <span class="tag">地图图幅</span>
+            <h3><a href="/#guide">1950 年代城市分幅图检索要点</a></h3>
+            <p>分幅图文件名多为“图号-比例尺-年份”，例如 E-48-21 对应 1:5 万比例尺。按图号搜命中率高于按地名搜，差距在 3 倍左右。</p>
+            <div class="meta"><span>首见 11月1日</span><span>图幅 46 张</span></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 最新更新 -->
+      <section class="block" id="update" aria-labelledby="updateTitle">
+        <div class="sec-head">
+          <div>
+            <span class="kicker">Updates</span>
+            <h2 id="updateTitle">索引同步与复核记录</h2>
+          </div>
+          <p>按时间倒序，只列最近 7 天的可核对动作。</p>
+        </div>
+        <ul class="tight">
+          <li>
+            <time datetime="2026-11-08">今天 08:12</time>
+            <span><a href="/#cats">文档类目增量同步完成</a>，新增 1,284 条，去重后净增 903 条</span>
+            <span class="st">已完成</span>
+          </li>
+          <li>
+            <time datetime="2026-11-07">昨天 22:04</time>
+            <span><a href="/#faq">失效复核队列清空</a>，36 条待确认条目中 21 条恢复、15 条降权</span>
+            <span class="st">已完成</span>
+          </li>
+          <li>
+            <time datetime="2026-11-07">昨天 18:31</time>
+            <span><a href="/#deep">影音类目分辨率标签归并规则</a>调整，1080i 并入 1080p 组</span>
+            <span class="st">已完成</span>
+          </li>
+          <li>
+            <time datetime="2026-11-06">11月6日 20:15</time>
+            <span><a href="/#rank">热度榜排序权重</a>从“首见时间优先”改为“来源域名可信度 0.6 + 新鲜度 0.4”</span>
+            <span class="st">已完成</span>
+          </li>
+          <li>
+            <time datetime="2026-11-05">11月5日 12:33</time>
+            <span><a href="/#news">地图图幅类目</a>补充 46 张分幅扫描件，其中 9 张缺边角</span>
+            <span class="st">已完成</span>
+          </li>
+          <li>
+            <time datetime="2026-11-03">11月3日 06:30</time>
+            <span><a href="/#guide">多关键词组合语法</a>修正减号排除词的解析错误，此前“-1080p”不生效</span>
+            <span class="st pending">已修复</span>
+          </li>
+          <li>
+            <time datetime="2026-10-31">10月31日 22:00</time>
+            <span><a href="/#deep">归档数据库迁移</a>完成，旧库保留 7 天可查，11月7日下线</span>
+            <span class="st">已完成</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 分类入口 -->
+      <section class="block" id="cats" aria-labelledby="catsTitle">
+        <div class="sec-head">
+          <div>
+            <span class="kicker">Index</span>
+            <h2 id="catsTitle">按文件形态找类目</h2>
+          </div>
+          <p>括号内为该类目当前有效索引条数，数字来自 11月8日 08:12 的统计。</p>
+        </div>
+        <div class="tag-index">
+          <a href="/#featued">文档扫描件 <span class="n">1,204</span></a>
+          <a href="/#deep">影音资源 <span class="n">886</span></a>
+          <a href="/#guide">公开课录音 <span class="n">342</span></a>
+          <a href="/#rank">软件安装包 <span class="n">517</span></a>
+          <a href="/#overview">地图图幅 <span class="n">231</span></a>
+          <a href="/#news">学术论文预印本 <span class="n">469</span></a>
+          <a href="/#update">电子杂志合订 <span class="n">158</span></a>
+          <a href="/#faq">字体与素材包 <span class="n">276</span></a>
+          <a href="/#featured">数据集样本 <span class="n">193</span></a>
+          <a href="/#deep">老照片修复版 <span class="n">164</span></a>
+          <a href="/#guide">公开课件 PPT <span class="n">287</span></a>
+          <a href="/#cats">曲谱与乐谱 <span class="n">129</span></a>
+        </div>
+        <div class="quote-card">
+          类目是按<strong>文件形态</strong>切的，不是按内容主题切的。一份《营造法式》注释既可能在文档扫描件，也可能在学术论文预印本，取决于上传者给的文件名长什么样。做检索时先想“对方会怎么命名”，再选类目。
+          <span class="q-meta">—— 整理自 10月27日的一次类目讨论记录</span>
+        </div>
+      </section>
+
+      <!-- 深度解析（唯一主体阅读区） -->
+      <section class="block" id="deep" aria-labelledby="deepTitle">
+        <div class="sec-head">
+          <div>
+            <span class="kicker">Analysis</span>
+            <h2 id="deepTitle">深度解析：结果条数越多的类目，命中质量未必越高</h2>
+          </div>
+        </div>
+        <article class="article-main">
+          <p class="claim">核心判断：在当前的索引结构里，<strong>一个类目的结果条数与有效命中率呈弱负相关</strong>。文档扫描件 1,204 条、有效命中率约 63%；电子杂志合订 158 条、有效命中率约 81%。差距不是随机波动，出自命名规范与重复上传两个机制。</p>
+          <p>说这话有前提。有效命中率的定义是：点开结果后，来源页仍可访问且文件描述与检索词实质相关。11月1日至11月7日，逐条抽检 6 个类目共 420 条记录，人工判定后才得出上述两个数字。样本不大，结论可被反驳——如果再过两周抽样，数字大概率会动。</p>
+
+          <h3>一、命名规范如何拉低大类的命中率</h3>
+          <p>文档扫描件的文件名常见三类写法：<b>《书名》-卷次-年份</b>、<b>某馆藏-编号</b>、<b>扫描_001</b>。第三类几乎无法用关键词命中，却在总量里占两成。11月2日抽查的 140 条文档条目中，29 条文件名只有流水号，点开后才知道是清代契约文书。这类条目在结果页占位，但不提供检索价值。</p>
+          <p>反过来，电子杂志合订的文件名普遍带刊名、年份、期号三段信息，例如“读书-2019-07”，一词命中率明显更高。这不是内容更好，是命名更规矩。</p>
+
+          <h3>二、同一事件的两条时间线</h3>
+          <p>10月31日完成归档数据库迁移，官方公告写的是“旧库保留 7 天可查”。实际执行出现了分叉：文档类目在 11月3日就切换完毕，旧库查询返回空；影音类目的旧库到 11月6日仍在服务。两者相差 3 天，期间用户能查到什么取决于类目，而不是公告里的统一时间。</p>
+          <table class="check-table">
+            <thead>
+              <tr><th>类目</th><th>公告口径</th><th>实际可查截止</th><th>差异</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>文档扫描件</td><td>旧库保留至 11月7日</td><td>11月3日 14:20 起返回空</td><td>提前 4 天</td></tr>
+              <tr><td>影音资源</td><td>同上</td><td>11月6日 23:50 仍可查</td><td>延后约 1 天</td></tr>
+              <tr><td>软件安装包</td><td>同上</td><td>11月5日 09:10 切换</td><td>提前 2 天</td></tr>
+            </tbody>
+          </table>
+          <p>这张表可逐项核对。要判断某条旧索引是否还通，看结果页右上角的“库版本”标记比看公告可靠。</p>
+
+          <h3>三、关于“集芳阁云搜最新”这个名字的两种说法</h3>
+          <div class="fact-split">
+            <div class="panel">
+              <h4>事实层（可核对）</h4>
+              <ul>
+                <li>站点自 10月26日起在公告条固定标注日期批次。</li>
+                <li>11月7日批次号 2026-11-07-B，新增 1,284 条。</li>
+                <li>改名记录仅在 10月28日页头文案一处出现。</li>
+              </ul>
+            </div>
+            <div class="panel spec">
+              <h4>推测与转述（未证实）</h4>
+              <ul>
+                <li>有用户转述“名字里的最新指代每日更新时间”，官方未回应。</li>
+                <li>论坛帖称改名与某次类目扩容有关，缺乏原始出处。</li>
+                <li>“最新”是否指索引新鲜度，尚无书面定义。</li>
+              </ul>
+            </div>
+          </div>
+          <p>把两层摆在一起看，能确认的只有批次号和日期；名称含义属于推测，检索时应以自己的需求词为准，不必围绕站点名做扩展搜索——那通常只会搜到重复的导航页。</p>
+
+          <h3>四、一个可套用的判断流程</h3>
+          <p>碰到一个陌生的类目，按下面四步走，比反复换关键词有效：先看结果条数是否与该类目的命名规范匹配；再抽 3 条看首见时间是否集中；然后核对来源域名是否重复；最后才点开内容。11月4日测试“地图图幅”类目时，前三步就排除了 7 条同源重复条目。</p>
+          <p>这个流程不解决“找不到”的问题，只解决“找到很多但都不能用”的问题。两者是不同的病。</p>
+        </article>
+      </section>
+
+      <!-- 体验指南 -->
+      <section class="block" id="guide" aria-labelledby="guideTitle">
+        <div class="sec-head">
+          <div>
+            <span class="kicker">Guide</span>
+            <h2 id="guideTitle">从关键词到可用结果的五步</h2>
+          </div>
+          <p>演示用的检索词为“县志 卷三”，步骤可替换成任意领域词。</p>
+        </div>
+        <ol class="steps">
+          <li><b>先定形态，再定内容</b>知道对方大概率上传的是扫描件还是整理稿，先去对应类目。搜“县志 卷三”先点文档扫描件，而不是全库搜。</li>
+          <li><b>用年份与卷次做限缩</b>在词后追加 1985 或 卷三，命中数从 2,300 级降到 40 级。数字型限定词比形容词有效。</li>
+          <li><b>并排比对首见时间</b>同一文件名出现 4 个条目时，先看首见时间是否集中在同一天，集中在同一天的通常是同一次上传的重复抓取。</li>
+          <li><b>核对来源域名数量</b>来源域名只有 1 个、条目却有多个，说明是单点来源拆分；来源在 3 个以上，独立上传的可能性更高。</li>
+          <li><b>留一条反馈再离开</b>发现失效就提交，复核池按 24 小时周期处理。11月7日恢复的 21 条，多数来自用户反馈而非自动探测。</li>
+        </ol>
+        <div class="compare" style="margin-top:var(--sp-3)">
+          <div>
+            <h3>适合直接搜的情况</h3>
+            <ul>
+              <li>文件有固定命名，如期刊年份期号</li>
+              <li>已知图号、卷次、编号等唯一标识</li>
+              <li>来源站点的分类页本身可浏览</li>
+            </ul>
+          </div>
+          <div class="alt">
+            <h3>更适合先浏览类目的情况</h3>
+            <ul>
+              <li>只有模糊内容印象，说不出文件名</li>
+              <li>目标条目可能被拆成十几个版本</li>
+              <li>需要判断同一批上传的整体质量</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="block" id="faq" aria-labelledby="faqTitle">
+        <div class="sec-head">
+          <div>
+            <span class="kicker">FAQ</span>
+            <h2 id="faqTitle">检索时问得最多的六个问题</h2>
+          </div>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>云搜索引一天更新几次？</summary>
+            <div class="ans">
+              <p>按公开更新日志，常规索引在每天 06:30、12:30、18:30 各同步一次，热门类目在大盘波动时会追加一次 22:00 的增量同步。三次全量同步的耗时在 11月3日的记录里是 18 分钟到 34 分钟不等。</p>
+            </div>
+          </details>
+          <details>
+            <summary>搜索结果里的失效链接怎么处理？</summary>
+            <div class="ans">
+              <p>失效链接由抓取队列标记为“待复核”，在结果页以灰色状态显示。用户可在条目右下角提交失效反馈，反馈进入复核池后通常在 24 小时内被重新请求一次，连续两次失败的条目会从主结果中降权，但仍可查。</p>
+            </div>
+          </details>
+          <details>
+            <summary>为什么同类目搜出的结果数量差别很大？</summary>
+            <div class="ans">
+              <p>结果数量取决于该类目被公开索引的条目规模。文档类目因文件命名规范统一，往往命中更多；影音类目因文件名多含版本、字幕、分辨率后缀，同一部作品可能拆成十几个条目，去重前数量虚高。11月5日的归并规则调整就是为了压缩这部分虚高。</p>
+            </div>
+          </details>
+          <details>
+            <summary>多关键词组合搜索有什么规则？</summary>
+            <div class="ans">
+              <p>空格分隔表示同时命中，竖线表示任一词命中，减号排除词。11月3日修复了减号解析错误，此前“-1080p”不生效。文件名里的年份、分辨率、语言标签可以作为筛选词直接叠加。</p>
+            </div>
+          </details>
+          <details>
+            <summary>索引结果能直接下载吗？</summary>
+            <div class="ans">
+              <p>索引只记录条目的来源页与文件描述，不托管文件。是否可下载取决于原来源站点当时的权限状态与链接有效性，结果页里的“来源域名”和“首见时间”用于判断条目新鲜度。</p>
+            </div>
+          </details>
+          <details>
+            <summary>版本更新会不会清空旧索引？</summary>
+            <div class="ans">
+              <p>不会整表清空。升级采用新库并行写入、旧库延迟下线的做法，10月26日到11月5日之间的两次数据结构调整都保留了旧索引 7 天可查，之后才切换。实际切换时间因类目而异，文档类目比公告提前了 4 天。</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 用户评论 -->
+      <section class="block" id="comments" aria-labelledby="commentsTitle">
+        <div class="sec-head">
+          <div>
+            <span class="kicker">Voices</span>
+            <h2 id="commentsTitle">用过之后留下的反馈</h2>
+          </div>
+          <p>按提交时间排序，保留原话，未做措辞修饰。</p>
+        </div>
+        <div class="comments">
+          <div class="cmt">
+            <div class="who"><span class="avatar" aria-hidden="true">陈</span><b>chen_archive</b><time datetime="2026-11-07">11月7日 21:40</time></div>
+            <p>地图图幅那 46 张里有 9 张缺边角，<span class="ref">E-48-21 那一张</span>右下角整块发白，检索词能命中但内容不全。建议在条目里直接标缺角范围。</p>
+          </div>
+          <div class="cmt">
+            <div class="who"><span class="avatar" aria-hidden="true">林</span><b>lin_0824</b><time datetime="2026-11-06">11月6日 09:12</time></div>
+            <p>多关键词的减号排除确实修好了，之前搜“公开课 -试看”总混进试看片段，现在干净了。这个改动比新增类目实用。</p>
+          </div>
+          <div class="cmt">
+            <div class="who"><span class="avatar" aria-hidden="true">赵</span><b>zhao_reads</b><time datetime="2026-11-05">11月5日 14:03</time></div>
+            <p>电子杂志合订只有 158 条，但翻下来八成是能用的，比文档扫描件那个 1,200 多条省时间。条数多不等于好找，这一点算是被数据说中了。</p>
+          </div>
+          <div class="cmt">
+            <div class="who"><span class="avatar" aria-hidden="true">何</span><b>he_dalao</b><time datetime="2026-11-05">11月5日 11:47</time></div>
+            <p>说实话，<span class="ref">“读书-2019-07”和“读书2019年07期”</span>这两个写法没能归并，我搜两遍才找全。规则说是按刊名年份归并，实际还是漏了。</p>
+          </div>
+          <div class="cmt">
+            <div class="who"><span class="avatar" aria-hidden="true">吴</span><b>wu_notes</b><time datetime="2026-11-04">11月4日 16:25</time></div>
+            <p>没有特别惊艳，但也没出过错。搜课程录音时看码率标签很省事，64kbps 和 128kbps 版本分开列，不用点进去猜。</p>
+          </div>
+          <div class="cmt">
+            <div class="who"><span class="avatar" aria-hidden="true">苏</span><b>su_map</b><time datetime="2026-11-03">11月3日 08:55</time></div>
+            <p>旧库提前下线这事有点突然。<span class="ref">11月3日 14:20</span> 之后查文档类目一直返回空，公告还写着保留到 7 日，公告得跟实际切换对齐。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 相关资讯 -->
+      <section class="block" id="news" aria-labelledby="newsTitle">
+        <div class="sec-head">
+          <div>
+            <span class="kicker">News</span>
+            <h2 id="newsTitle">与检索相关的最新动向</h2>
+          </div>
+          <p>每条注明信息源与日期，转述与事实分开写。</p>
+        </div>
+        <div class="grid g2">
+          <article class="card">
+            <span class="tag">规则调整</span>
+            <h3><a href="/#deep">分辨率标签归并：1080i 并入 1080p 组</a></h3>
+            <p>11月7日 18:31 起，影音类目的 1080i 条目不再单列，统一进入 1080p 分组。归并后该类目条目数从 1,042 降到 886，减少 156 条。</p>
+            <div class="meta"><span>来源：索引规则页</span><span>11月7日</span></div>
+          </article>
+          <article class="card">
+            <span class="tag">权重变动</span>
+            <h3><a href="/#rank">热度榜排序权重改为可信度优先</a></h3>
+            <p>11月6日 20:15 起，热度榜从“首见时间优先”改为“来源域名可信度 0.6 + 新鲜度 0.4”。旧榜前 3 名中有 2 名跌出前 10。</p>
+            <div class="meta"><span>来源：榜单说明</span><span>11月6日</span></div>
+          </article>
+          <article class="card">
+            <span class="tag">社区讨论</span>
+            <h3><a href="/#comments">关于“最新”含义的论坛转述</a></h3>
+            <p>有用户在某论坛称名字中的“最新”指每日更新时间，跟帖 40 余条，但无官方回应。属转述，未证实，检索时不必据此扩展搜索词。</p>
+            <div class="meta"><span>来源：论坛帖转述</span><span>11月4日</span></div>
+          </article>
+          <article class="card">
+            <span class="tag">数据迁移</span>
+            <h3><a href="/#update">归档数据库迁移完成，旧库分批下线</a></h3>
+            <p>10月31日 22:00 完成迁移，旧库按类目分批下线而非统一切换。文档类目 11月3日、软件类目 11月5日、影音类目 11月6日，全部在 7 日之前。</p>
+            <div class="meta"><span>来源：迁移记录</span><span>10月31日</span></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 榜单 -->
+      <section class="block" id="rank" aria-labelledby="rankTitle">
+        <div class="sec-head">
+          <div>
+            <span class="kicker">Rank</span>
+            <h2 id="rankTitle">来源域名可信度分层</h2>
+          </div>
+          <p>分层依据为可访问率、命名规范度与连续 30 天稳定在线天数，非内容评价。</p>
+        </div>
+        <ol class="rank">
+          <li>
+            <span class="rk">1</span>
+            <span><a href="/#featured">地方档案馆公开查询页</a><span class="sub">命名规范、连续在线 210 天，抽样可访问率 96%</span></span>
+            <span class="score">可访问 96%</span>
+          </li>
+          <li>
+            <span class="rk">2</span>
+            <span><a href="/#guide">高校课程资料镜像站</a><span class="sub">按学期目录组织，11月6日抽检 40 条，失效 3 条</span></span>
+            <span class="score">可访问 92%</span>
+          </li>
+          <li>
+            <span class="rk">3</span>
+            <span><a href="/#cats">期刊合订本索引页</a><span class="sub">年份期号三段命名，重复上传少，去重率 88%</span></span>
+            <span class="score">可访问 89%</span>
+          </li>
+          <li>
+            <span class="rk">4</span>
+            <span><a href="/#deep">开源软件历史版本页</a><span class="sub">带校验值，但 2019 年前版本留存仅 41%</span></span>
+            <span class="score">可访问 76%</span>
+          </li>
+          <li>
+            <span class="rk">5</span>
+            <span><a href="/#news">论文预印本聚合页</a><span class="sub">版本更新频繁，同一篇常出现 2 至 3 个修订稿</span></span>
+            <span class="score">可访问 71%</span>
+          </li>
+        </ol>
+      </section>
+
+      <!-- 相关推荐 -->
+      <section class="block" id="rec" aria-labelledby="recTitle">
+        <div class="sec-head">
+          <div>
+            <span class="kicker">Related</span>
+            <h2 id="recTitle">接着可以查的方向</h2>
+          </div>
+        </div>
+        <div class="rec-tags">
+          <a href="/#deep">地方志扫描件检索</a>
+          <a href="/#guide">公开课录音码率辨别</a>
+          <a href="/#cats">图幅号命名规则</a>
+          <a href="/#featured">期刊合订本年份期号写法</a>
+          <a href="/#rank">软件安装包校验值比对</a>
+          <a href="/#faq">失效复核反馈流程</a>
+          <a href="/#news">预印本修订稿区分</a>
+          <a href="/#overview">文件形态分类方法</a>
+          <a href="/#deep">来源域名可信度判断</a>
+          <a href="/#update">旧库下线时间自查</a>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 侧栏 -->
+    <aside class="side" aria-label="辅助导航与快讯">
+      <div class="side-card">
+        <h3>页内导航</h3>
+        <ul class="side-nav" id="sideNav">
+          <li><a href="/#overview">领域概览</a></li>
+          <li><a href="/#featured">精选内容推荐</a></li>
+          <li><a href="/#update">最新更新</a></li>
+          <li><a href="/#cats">分类入口</a></li>
+          <li><a href="/#deep">深度解析</a></li>
+          <li><a href="/#guide">体验指南</a></li>
+          <li><a href="/#faq">常见问题</a></li>
+          <li><a href="/#comments">用户评论</a></li>
+          <li><a href="/#news">相关资讯</a></li>
+          <li><a href="/#rank">可信度分层</a></li>
+          <li><a href="/#rec">相关推荐</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <h3>今日快讯</h3>
+        <ul class="brief-list">
+          <li><time datetime="2026-11-08">今天 08:12</time><a href="/#update">文档类目增量同步，净增 903 条</a></li>
+          <li><time datetime="2026-11-07">昨天 22:04</time><a href="/#faq">复核队列清空，21 条恢复</a></li>
+          <li><time datetime="2026-11-07">昨天 18:31</time><a href="/#news">1080i 并入 1080p 组</a></li>
+          <li><time datetime="2026-11-06">11月6日</time><a href="/#rank">热度榜改为可信度优先</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <h3>检索小抄</h3>
+        <ul class="brief-list">
+          <li>空格 = 同时命中</li>
+          <li>竖线 = 任一命中</li>
+          <li>减号 = 排除词</li>
+          <li>年份与分辨率可直接叠词</li>
+          <li>看“库版本”标记判断新旧</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <span class="brand">
+        <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#ffffff" opacity="0.12"/>
+          <circle cx="28" cy="28" r="13" fill="none" stroke="#e8b04b" stroke-width="5"/>
+          <line x1="38" y1="38" x2="52" y2="52" stroke="#e8b04b" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+        集芳阁云搜最新
+      </span>
+      <p>记录公开文件描述的检索路径，把批次、命名与复核状态摆在同一张表上，让查找有据可依。</p>
+      <p style="font-size:12.5px">页脚更新时间：2026年11月8日 08:12（对应文档类目增量同步与复核队列清空两项正文更新）</p>
+    </div>
+    <div>
+      <h3>内容栏目</h3>
+      <ul class="foot-links">
+        <li><a href="/#overview">领域概览</a></li>
+        <li><a href="/#featured">精选内容推荐</a></li>
+        <li><a href="/#deep">深度解析</a></li>
+        <li><a href="/#guide">体验指南</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>索引栏目</h3>
+      <ul class="foot-links">
+        <li><a href="/#cats">分类入口</a></li>
+        <li><a href="/#update">最新更新</a></li>
+        <li><a href="/#rank">可信度分层</a></li>
+        <li><a href="/#rec">相关推荐</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>互动与答疑</h3>
+      <ul class="foot-links">
+        <li><a href="/#faq">常见问题</a></li>
+        <li><a href="/#comments">用户评论</a></li>
+        <li><a href="/#news">相关资讯</a></li>
+        <li><a href="/#top">回到顶部</a></li>
+      </ul>
+    </div>
+    <div class="foot-note">
+      <p><b>示例数据说明：</b>站内条目、批次号、统计数字与用户评论均为演示用示例数据，按 2026年11月8日前后 30 天内的时序编排，不指向任何真实的文件托管或下载服务。索引仅呈现公开可见的文件描述信息。</p>
+      <p>© 2026 集芳阁云搜最新 · 内容为检索观察与示例整理 · 保留所有权利</p>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" type="button" aria-label="回到顶部">↑</button>
+
+<script>
+(function(){
+  var stick = document.querySelector('.sticky-wrap');
+  var root = document.documentElement;
+  function setStickHeight(){
+    if(!stick) return;
+    var h = stick.getBoundingClientRect().height;
+    root.style.setProperty('--stick-h', Math.round(h) + 'px');
+  }
+  setStickHeight();
+  window.addEventListener('resize', setStickHeight);
+  window.addEventListener('load', setStickHeight);
+
+  /* 移动端菜单 */
+  var menuBtn = document.getElementById('menuBtn');
+  var mainNav = document.getElementById('mainNav');
+  if(menuBtn && mainNav){
+    menuBtn.addEventListener('click', function(){
+      var open = mainNav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      setStickHeight();
+    });
+    mainNav.addEventListener('click', function(e){
+      if(e.target.tagName === 'A' && window.matchMedia('(max-width:720px)').matches){
+        mainNav.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded','false');
+        setStickHeight();
+      }
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && mainNav.classList.contains('open')){
+        mainNav.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded','false');
+        menuBtn.focus();
+        setStickHeight();
+      }
+    });
+  }
+
+  /* 平滑滚动抵消吸顶高度 */
+  function offsetScroll(target){
+    if(!target) return;
+    var offset = stick ? stick.getBoundingClientRect().height : 0;
+    var top = target.getBoundingClientRect().top + window.pageYOffset - offset + 1;
+    window.scrollTo({top: Math.max(top, 0), behavior: 'smooth'});
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href^="/#"]');
+    if(!a) return;
+    var id = a.getAttribute('href').slice(2);
+    if(!id) return;
+    var target = document.getElementById(id);
+    if(!target) return;
+    e.preventDefault();
+    offsetScroll(target);
+    if(history.replaceState){ history.replaceState(null, '', '/' + '#' + id); }
+  });
+
+  /* 滚动高亮侧栏 */
+  var sideLinks = Array.prototype.slice.call(document.querySelectorAll('#sideNav a'));
+  var secs = sideLinks.map(function(a){
+    return document.getElementById(a.getAttribute('href').slice(2));
+  }).filter(Boolean);
+  var ticking = false;
+  function highlight(){
+    ticking = false;
+    var offset = (stick ? stick.getBoundingClientRect().height : 0) + 40;
+    var pos = window.pageYOffset + offset;
+    var idx = -1;
+    for(var i=0;i<secs.length;i++){
+      if(secs[i].offsetTop <= pos) idx = i;
+    }
+    sideLinks.forEach(function(a,i){
+      a.classList.toggle('active', i === idx);
+    });
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ ticking = true; window.requestAnimationFrame(highlight); }
+  }, {passive:true});
+  highlight();
+
+  /* 回到顶部 */
+  var toTop = document.getElementById('toTop');
+  if(toTop){
+    window.addEventListener('scroll', function(){
+      toTop.classList.toggle('show', window.pageYOffset > 640);
+    }, {passive:true});
+    toTop.addEventListener('click', function(){
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  }
+
+  /* 站内查找 */
+  var form = document.getElementById('searchForm');
+  var input = document.getElementById('q');
+  var fb = document.getElementById('searchFeedback');
+  if(form && input && fb){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var q = (input.value || '').trim().toLowerCase();
+      fb.textContent = '';
+      if(!q){
+        fb.innerHTML = '请输入要查找的词，例如“图幅号”“复核”或“1080p”。';
+        return;
+      }
+      var nodes = document.querySelectorAll('main h2, main h3, main summary, main p, main li, main a');
+      var hits = [];
+      nodes.forEach(function(n){
+        if(hits.length >= 6) return;
+        var t = (n.textContent || '').trim();
+        if(t && t.toLowerCase().indexOf(q) > -1){
+          var host = n.closest('section, details, article');
+          hits.push({t: t.slice(0, 38), host: host});
+        }
+      });
+      if(!hits.length){
+        fb.innerHTML = '没有找到与“<b>' + q.replace(/[<>&]/g,'') + '</b>”直接匹配的条目，可换用类目名、图号或年份再试。';
+        return;
+      }
+      var frag = document.createElement('span');
+      frag.appendChild(document.createTextNode('命中 ' + hits.length + ' 处：'));
+      hits.forEach(function(h, i){
+        if(h.host && h.host.id){
+          var a = document.createElement('a');
+          a.href = '/#' + h.host.id;
+          a.textContent = h.t;
+          a.style.marginLeft = '8px';
+          frag.appendChild(a);
+        }
+      });
+      fb.innerHTML = '';
+      fb.appendChild(frag);
+    });
+  }
+})();
+</script>
+</body>
+  </html>
